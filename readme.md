@@ -8,5 +8,5 @@ I want to create my own AI agent that provides me with only the very best techni
 
 History on the project:
 
-4/6: Initialized Project, came up with initial project concept (tech support tool) and initial stack, 
+4/6: Initialized Project, sorted out GitHub repository issues, came up with initial project concept (tech support tool) and barebones stack (python fastapi backend, python for orchestration, javascript/css/html frontend), set up .env, .gitignore and uv, learned about and implemented a health check endpoint to see if the server is running, and set up barebones communication with the OpenAI API
 
