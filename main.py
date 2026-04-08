@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from openai import OpenAI
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
@@ -11,22 +12,40 @@ class Message(BaseModel):
 load_dotenv()
 app = FastAPI()
 
-# Initialize OpenAI client
-client = OpenAI()
 
-# Health check endpoint - checks to see if the server is running
-@app.get("/")
-def root():
-    return {"message": "API is running"}
 
-# Chat endpoint - takes in user input and returns a response from the model
-@app.post("/chat")
-def chat(user_input: Message):
-    response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=user_input.content
+model_name = "Qwen/Qwen2.5-0.5B-Instruct"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    dtype="auto",
+    device_map="cpu"
+)
+
+def generate_response(user_input):
+    prompt = f"""You are a helpful tech support assistant.
+
+User: {user_input}
+
+Assistant:"""
+
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+
+    outputs = model.generate(
+        **inputs,
+        max_new_tokens=120,
+        do_sample=True,
+        temperature=0.7,
+        top_p=0.9
     )
 
-    return {
-        "reply": response.output_text
-    }
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    # Remove prompt from output
+    response = response.split("Assistant:")[-1].strip()
+    return response
+
+if __name__ == "__main__":
+    print(generate_response("How do I fix a 404 error in FastAPI?"))
