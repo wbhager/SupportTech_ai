@@ -9,7 +9,7 @@ app = FastAPI()
 
 
 
-model_name = "Qwen/Qwen2.5-0.5B-Instruct"
+model_name = "Qwen/Qwen2.5-1.5B-Instruct"
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
