@@ -2,11 +2,6 @@ from fastapi import FastAPI
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from dotenv import load_dotenv
-from pydantic import BaseModel
-
-# Create base model for each message to model, ensures correctness of input
-class Message(BaseModel):
-    content: str
 
 # Load .env variables
 load_dotenv()
@@ -21,7 +16,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
     dtype="auto",
-    device_map="cpu"
+    device_map="mps"
 )
 
 def generate_response(user_input):

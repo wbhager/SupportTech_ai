@@ -5,9 +5,10 @@ I want to create my own AI agent that provides me with only the very best techni
 <br> <br> <br>
 
 To-do:
-    - Find new and very small model that is currently fine-tuned to answer tech questions (huggingface)
     - Create basic chat interface where users can type in a message and they get a relevant response back
     - Gather some data for the model to be trained on
+    - Review LoRA/PEFT/Quantization in order for concepts to stick
+
 
 
 <br> <br> <br>
@@ -20,5 +21,9 @@ History on the project:
 
 4/8: Extensively read up on and researched PEFT, LoRA and quantization, attempted the first run with the new code to run the barebones Qwen2-3B model but was left with some extremely slow processing, attempted a few more times with smaller models until I finally got it to run in a fast time with the 0.5B parameter model, tried again with larger models but did not get anything to work so I'm sticking with the 0.5B model for now
 
-4/9: IF YOU'RE READING THIS, GO BACK OVER PEFT/LORA/QUANT TO MAKE SURE IT STICKS
+4/13: 
+
+
+
+
 
