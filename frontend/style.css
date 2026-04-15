@@ -1,0 +1,24 @@
+#chat-input {
+    width: 100%;
+    min-height: 50px;
+    max-height: 150px;
+  
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: system-ui, -apple-system, sans-serif;
+  
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  
+    outline: none;
+    resize: none;
+  
+    /* Smooth feel */
+    transition: border 0.15s ease, box-shadow 0.15s ease;
+  }
+  
+  #chat-input:focus {
+    border: 1px solid #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  }
