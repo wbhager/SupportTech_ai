@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from dotenv import load_dotenv
+from pathlib import Path
 
 # Load .env variables
 load_dotenv()
@@ -18,6 +19,8 @@ model = AutoModelForCausalLM.from_pretrained(
     dtype="auto",
     device_map="mps"
 )
+
+system_prompt = Path("system_prompt.txt").read_text()
 
 def generate_response(user_input):
     prompt = f"""You are a helpful tech support assistant.
