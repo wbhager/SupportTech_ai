@@ -21,6 +21,8 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 
 system_prompt = Path("system_prompt.txt").read_text()
+tool_prompt = Path("tool_prompt.txt").read_text()
+formatter_prompt = Path("formatter_prompt.txt").read_text()
 
 def generate_response(user_input):
     prompt = f"""You are a helpful tech support assistant.
