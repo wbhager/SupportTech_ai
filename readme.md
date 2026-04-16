@@ -5,16 +5,30 @@ I want to create my own AI agent that provides me with only the very best techni
 <br> <br> <br>
 
 To-do:
-    - Create basic chat interface where users can type in a message and they get a relevant response back
-    - 
-    - Review LoRA/PEFT/Quantization in order for concepts to stick
+    Backend:
+        - Set up API server and API endpoints
+        - Create first system prompt and system prompt and apply them to user prompts
+        - Determine what tools I would like to implement (RAG, etc.)
+        - Create tool system prompt and implement the first tool
+        - Review LoRA/PEFT/Quantization in order for concepts to stick
+        - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
+
+
+
+    Frontend:
+        - Determine what my frontend stack will be
+        - Do basic research on each of the languages I will be implementing on the frontend to better learn the languages
+        - Create basic chat interface where users can type in a message and they get a relevant response back
+        - Implement new sections on your HTML site with new tags you haven't used before
+        - Start implementing a color scheme that can slowly be added to as the site starts to come along
+
+    
 
     
     
     
     
     
-    - Gather some data for the model to be trained on
 
 
 
@@ -30,7 +44,11 @@ History on the project:
 
 4/13: More closely analyzed the bare-bones code that is needed to get basic responses from my model, switched the device_map from CPU to MPS since I found out that my mac has small graphics processing units that can tackle larger models and upgraded back to the Qwen2.5-1.5B-Instruct model, reviewed a similar project to my own that performed QLoRA for fine-tuning and went over several of the coding decisions one-by-one so that each one made sense to me, reviewed and discovered more about libraries, classes and objects, learned about the dropout regularization technique
 
-4/14: 
+4/14: Initialized index.html file and set up a barebones site, set up a server extension that can make my server go live just by the click of a button, researched html basics to be even more familiar with it, started re-formatting project by putting files in relevant folders, decided upon the objectives that I will attempt to complete first on both the frontend and backend
+
+4/15: Fixed up to-do list some more, updated structure further by adding more subfolders, initialized app.js and style.css files, initialized formatter, system, and tool prompt templates that will be utilized most easily using Path, briefly read up on read up on how to actually build and run an api server with various api endpoints using a router, 
+
+
 
 
 
