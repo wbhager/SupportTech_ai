@@ -46,7 +46,11 @@ History on the project:
 
 4/14: Initialized index.html file and set up a barebones site, set up a server extension that can make my server go live just by the click of a button, researched html basics to be even more familiar with it, started re-formatting project by putting files in relevant folders, decided upon the objectives that I will attempt to complete first on both the frontend and backend
 
-4/15: Fixed up to-do list some more, updated structure further by adding more subfolders, initialized app.js and style.css files, initialized formatter, system, and tool prompt templates that will be utilized most easily using Path, briefly read up on read up on how to actually build and run an api server with various api endpoints using a router, 
+4/15: Fixed up to-do list some more, updated structure further by adding more subfolders, initialized app.js and style.css files, initialized formatter, system, and tool prompt templates that will be utilized most easily using Path, briefly read up on read up on how to actually build and run an api server with various api endpoints using a router
+
+4/16: Updated stack to include React instead of the basic html, css, and javascript files, began studying up on React so that I can easily design a complex user interface
+
+4/20: 
 
 
 
