@@ -1,8 +1,6 @@
 from fastapi import FastAPI
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
 from dotenv import load_dotenv
-from pathlib import Path
+from pydantic import BaseModel
 from logic.generate_response import generate_response
 
 # Load .env variables
