@@ -7,5 +7,7 @@ from logic.generate_response import generate_response
 load_dotenv()
 app = FastAPI()
 
+app.include_router(chat.router)
+
 if __name__ == "__main__":
     print(generate_response("How do I fix a 404 error in FastAPI?"))
