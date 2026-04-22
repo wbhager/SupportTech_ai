@@ -2,18 +2,12 @@ Hello! Welcome to my second full-length self-project. This one is called Support
 
 I want to create my own AI agent that provides me with only the very best technical knowledge whenever I have questions. I plan to have a fully-functioning UI with a well-designed website that can remember previous questions you had. I want to be involved in every step of the AI training process, even fine-tuning if my hardware allows for it. I will utilize a small (~7B should work fine, hopefully), open-source model from huggingface where I can perform every step of the AI training life cycle, from pre-training to evaluation output. I will use both GPT 5.1 and Claude Sonnet 4-5 as evaluation tools to check my outputs. I will also implement PyTorch in some way, since I want to get familiar with how it works since it is the backbone of the transformer architecture.
 
+Don't forget command D for being able to edit multiple words at once! (Command + Shift + L for all instances)
+
 <br> <br> <br>
 
 To-do:
-    Backend:
-        - Set up API server and API endpoints
-        - Create first system prompt and system prompt and apply them to user prompts
-        - Determine what tools I would like to implement (RAG, etc.)
-        - Create tool system prompt and implement the first tool
-        - Review LoRA/PEFT/Quantization in order for concepts to stick
-        - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
-
-
+Backend: - Set up API server and API endpoints - Create first system prompt and system prompt and apply them to user prompts - Determine what tools I would like to implement (RAG, etc.) - Create tool system prompt and implement the first tool - Review LoRA/PEFT/Quantization in order for concepts to stick - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
 
     Frontend:
         - Determine what my frontend stack will be
@@ -22,16 +16,6 @@ To-do:
         - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
         - Implement new sections on your HTML site with new tags you haven't used before
         - Start implementing a color scheme that can slowly be added to as the site starts to come along
-
-    
-
-    
-    
-    
-    
-    
-
-
 
 <br> <br> <br>
 
@@ -53,8 +37,4 @@ History on the project:
 
 4/21: Read further on how to build and run a complex api server with several routes, separated logic from main file into api_server and generate_response files, constructed first and main route (chat endpoint), added chat route as a usable route in the application
 
-
-
-
-
-
+4/22: Set up react environment inside of my frontend folder, updated configurations by deleting and modifying some so that there would be no issues using both TypeScript and React together, went through much of a lengthy YouTube tutorial on all things React, installed bootstrap and prettify for extra css functionality and automatic code optimal restructuring respectively
