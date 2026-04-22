@@ -51,7 +51,7 @@ History on the project:
 
 4/16: Updated stack to include React instead of the basic html, css, and javascript files, began studying up on React so that I can easily design a complex user interface
 
-4/21: Read further on how to build and run a complex api server with several routes, separated logic from main file into api_server and generate_response files, 
+4/21: Read further on how to build and run a complex api server with several routes, separated logic from main file into api_server and generate_response files, constructed first and main route (chat endpoint), added chat route as a usable route in the application
 
 
 
