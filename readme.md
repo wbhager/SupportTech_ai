@@ -19,6 +19,7 @@ To-do:
         - Determine what my frontend stack will be
         - Do basic research on each of the languages I will be implementing on the frontend to better learn the languages
         - Create basic chat interface where users can type in a message and they get a relevant response back
+        - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
         - Implement new sections on your HTML site with new tags you haven't used before
         - Start implementing a color scheme that can slowly be added to as the site starts to come along
 
@@ -50,7 +51,7 @@ History on the project:
 
 4/16: Updated stack to include React instead of the basic html, css, and javascript files, began studying up on React so that I can easily design a complex user interface
 
-4/20: 
+4/21: 
 
 
 
