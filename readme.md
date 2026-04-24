@@ -38,3 +38,5 @@ History on the project:
 4/21: Read further on how to build and run a complex api server with several routes, separated logic from main file into api_server and generate_response files, constructed first and main route (chat endpoint), added chat route as a usable route in the application
 
 4/22: Set up react environment inside of my frontend folder, updated configurations by deleting and modifying some so that there would be no issues using both TypeScript and React together, went through much of a lengthy YouTube tutorial on all things React, installed bootstrap and prettify for extra css functionality and automatic code optimal restructuring respectively, learned some very useful shortcuts to make things easier (option shift click for copying code in between, command d, command shift l (puts cursor on next, all of the same words, respectively))
+
+4/23: Finished the lengthy YouTube React tutorial and started honing in on some of the specific things you can make happen in React, learned about the major differences between JavaScript and TypeScript
