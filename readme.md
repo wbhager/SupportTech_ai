@@ -42,7 +42,7 @@ History on the project:
 
 4/26 + 4/27: Further React studying
 
-4/28: Began attempting to connect the frontend and backend by adding middleware to the api server code to set appropriate permissions and to connect React on port 5173 to the fastapi backend in port 8000, initialized a react app that is set up to send basic requests to my model and then provide back the responses (although the requests are not going through at the current moment)
+4/28: Began attempting to connect the frontend and backend by adding middleware to the api server code to set appropriate permissions and to connect React on port 5173 to the fastapi backend in port 8000, initialized a react app that is set up to send basic requests to my model and then provide back the responses (although the requests are not going through at the current moment), got rid of unnecessary css code that came with the default react webpage design
 
 5/3: Further looked into middleware to gain a deeper understanding of its purpose and how you can shape it to do what you need it to do, finished documenting some modifications to earlier code and massively updated the to-do list items
 
