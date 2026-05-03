@@ -7,14 +7,13 @@ Don't forget command D for being able to edit multiple words at once! (Command +
 <br> <br> <br>
 
 To-do:
-Backend: - Set up API server and API endpoints - Create first system prompt and system prompt and apply them to user prompts - Determine what tools I would like to implement (RAG, etc.) - Create tool system prompt and implement the first tool - Review LoRA/PEFT/Quantization in order for concepts to stick - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
+Backend: - Debug the basic message request to the Qwen model that will allow my frontend and backend to finally be connected - Create first system prompt and system prompt and apply them to user prompts - Determine what tools I would like to implement (RAG, etc.) - Create tool system prompt and implement the first tool - Review LoRA/PEFT/Quantization in order for concepts to stick - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
 
     Frontend:
-        - Determine what my frontend stack will be
-        - Do basic research on each of the languages I will be implementing on the frontend to better learn the languages
-        - Create basic chat interface where users can type in a message and they get a relevant response back
+        - Watch the TechWithTim React tutorial to get a different perspective on beginning in React
+        - Brainstorm ideas for what I want my interface to look like
+        - Start implementing the early ideas for my interface design, I can always add to it/change it later
         - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
-        - Implement new sections on your HTML site with new tags you haven't used before
         - Start implementing a color scheme that can slowly be added to as the site starts to come along
 
 <br> <br> <br>
@@ -40,3 +39,11 @@ History on the project:
 4/22: Set up react environment inside of my frontend folder, updated configurations by deleting and modifying some so that there would be no issues using both TypeScript and React together, went through much of a lengthy YouTube tutorial on all things React, installed bootstrap and prettify for extra css functionality and automatic code optimal restructuring respectively, learned some very useful shortcuts to make things easier (option shift click for copying code in between, command d, command shift l (puts cursor on next, all of the same words, respectively))
 
 4/23: Finished the lengthy YouTube React tutorial and started honing in on some of the specific things you can make happen in React, learned about the major differences between JavaScript and TypeScript
+
+4/26 + 4/27: Further React studying
+
+4/28: Began attempting to connect the frontend and backend by adding middleware to the api server code to set appropriate permissions and to connect React on port 5173 to the fastapi backend in port 8000, initialized a react app that is set up to send basic requests to my model and then provide back the responses (although the requests are not going through at the current moment)
+
+5/3: Further looked into middleware to gain a deeper understanding of its purpose and how you can shape it to do what you need it to do, finished documenting some modifications to earlier code and massively updated the to-do list items
+
+5/4: MISSION: Debug the message sending pipeline from frontend-to-backend-to-frontend and add some style to the front page!
