@@ -55,6 +55,6 @@ History on the project:
 
 5/3: Further looked into middleware to gain a deeper understanding of its purpose and how you can shape it to do what you need it to do, finished documenting some modifications to earlier code and massively updated the to-do list items
 
-5/4: Set up HuggingFace (HF) token for higher rates and faster downloads, read up on the logistics for deploying projects such as this one to production with React and decided to
+5/4: Set up HuggingFace (HF) token for higher rates and faster downloads, read up on the logistics for deploying projects such as this one to production with React and decided to not make the project public 24/7 due to the costs (I put my end-game plan near the top of this readme), established the connection between frontend and backend with a fully-working react site after updating faulty import logic across a few of the backend files and commenting out system prompt lines that I don't need quite yet, decided upon a purple/pink/white default color scheme and that users will be able to select from several different color themes when this is done, deleted unnecessary app and index css since I wanted to start from scratch, started setting up color palettes to switch from
 
-MISSION: Debug the message sending pipeline from frontend-to-backend-to-frontend and add some style to the front page!
+MISSION: Create the first version of the system prompt that the model can utilize, and start designing the full UI layout + create some color palettes!
