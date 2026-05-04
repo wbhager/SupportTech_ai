@@ -1,20 +1,23 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from pathlib import Path
+import os
 
 model_name = "Qwen/Qwen2.5-1.5B-Instruct"
+hf_token = os.getenv("HF_TOKEN")
 
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token)
 
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
+    token = hf_token,
     dtype="auto",
     device_map="mps"
 )
 
-system_prompt = Path("system_prompt.txt").read_text()
-tool_prompt = Path("tool_prompt.txt").read_text()
-formatter_prompt = Path("formatter_prompt.txt").read_text()
+# system_prompt = Path("system_prompt.txt").read_text()
+# tool_prompt = Path("tool_prompt.txt").read_text()
+# formatter_prompt = Path("formatter_prompt.txt").read_text()
 
 def generate_response(user_input):
     prompt = f"""You are a helpful tech support assistant.

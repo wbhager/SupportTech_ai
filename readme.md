@@ -1,13 +1,22 @@
 Hello! Welcome to my second full-length self-project. This one is called SupportTech.ai!
 
-I want to create my own AI agent that provides me with only the very best technical knowledge whenever I have questions. I plan to have a fully-functioning UI with a well-designed website that can remember previous questions you had. I want to be involved in every step of the AI training process, even fine-tuning if my hardware allows for it. I will utilize a small (~7B should work fine, hopefully), open-source model from huggingface where I can perform every step of the AI training life cycle, from pre-training to evaluation output. I will use both GPT 5.1 and Claude Sonnet 4-5 as evaluation tools to check my outputs. I will also implement PyTorch in some way, since I want to get familiar with how it works since it is the backbone of the transformer architecture.
+I want to create my own AI agent that provides me with only the very best technical knowledge whenever I have questions. I plan to have a fully-functioning UI with a well-designed website that can remember previous questions you had. I want to be involved in every step of the AI training process, even fine-tuning if my hardware allows for it. I will utilize a small, open-source model from huggingface where I can perform every step of the AI training life cycle, from pre-training to evaluation output. I will use both GPT 5.1 and Claude Sonnet 4-5 as evaluation tools to check my outputs. I will also implement PyTorch in some way, since I want to get familiar with how it works since it is the backbone of the transformer architecture.
+
+When my project is finished, I want to make it so that I can run it whenever I want on my own computer, and I will have a video demonstration of how my agent works on GitHub because it costs money monthly renting computer power remotely for other people to use my agent.
 
 Don't forget command D for being able to edit multiple words at once! (Command + Shift + L for all instances)
 
 <br> <br> <br>
 
 To-do:
-Backend: - Debug the basic message request to the Qwen model that will allow my frontend and backend to finally be connected - Create first system prompt and system prompt and apply them to user prompts - Determine what tools I would like to implement (RAG, etc.) - Create tool system prompt and implement the first tool - Review LoRA/PEFT/Quantization in order for concepts to stick - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
+
+    Backend:
+        - Debug the basic message request to the Qwen model that will allow my frontend and backend to finally be connected
+        - Create first system prompt and system prompt and apply them to user prompts
+        - Determine what tools I would like to implement (RAG, etc.)
+        - Create tool system prompt and implement the first tool
+        - Review LoRA/PEFT/Quantization in order for concepts to stick
+        - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
 
     Frontend:
         - Watch the TechWithTim React tutorial to get a different perspective on beginning in React
@@ -46,4 +55,6 @@ History on the project:
 
 5/3: Further looked into middleware to gain a deeper understanding of its purpose and how you can shape it to do what you need it to do, finished documenting some modifications to earlier code and massively updated the to-do list items
 
-5/4: MISSION: Debug the message sending pipeline from frontend-to-backend-to-frontend and add some style to the front page!
+5/4: Set up HuggingFace (HF) token for higher rates and faster downloads, read up on the logistics for deploying projects such as this one to production with React and decided to
+
+MISSION: Debug the message sending pipeline from frontend-to-backend-to-frontend and add some style to the front page!

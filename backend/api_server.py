@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from routes import chat
-from logic.generate_response import generate_response
+from backend.routes import chat
+from backend.logic import generate_response
 from fastapi.middleware.cors import CORSMiddleware
 
 
