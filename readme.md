@@ -57,6 +57,6 @@ History on the project:
 
 5/4: Set up HuggingFace (HF) token for higher rates and faster downloads, read up on the logistics for deploying projects such as this one to production with React and decided to not make the project public 24/7 due to the costs (I put my end-game plan near the top of this readme), established the connection between frontend and backend with a fully-working react site after updating faulty import logic across a few of the backend files and commenting out system prompt lines that I don't need quite yet, decided upon a purple/pink/white default color scheme and that users will be able to select from several different color themes when this is done, deleted unnecessary app and index css since I wanted to start from scratch, started setting up color palettes to switch from
 
-5/5: Fixed theme-switching bug by controlling the theme at the root level instead of making it its own div element,
+5/5: Fixed theme-switching bug by controlling the theme at the root level instead of making it its own div element, tried out different layouts to display my color-theme toggle options, the input container, and the output response, determined that I want to have a label in the top right corner named color that, when hovered over, will show all of the buttons for the possible themes that can be chosen
 
-MISSION: Create the first version of the system prompt that the model can utilize, and start designing the full UI layout + create some color palettes!
+MISSION: Create the first version of the system prompt that the model can utilize, implement hover-with-hidden-buttons design and up the number of color themes!
