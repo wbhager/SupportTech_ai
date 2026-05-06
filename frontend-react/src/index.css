@@ -27,6 +27,27 @@ body {
   min-height: 100vh;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+}
+
+.theme-button {
+  display: flex;
+  justify-content: right;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--text);
+  cursor: pointer;
+}
+
+
+
+
 .theme {
   display: flex;
   justify-content: center;

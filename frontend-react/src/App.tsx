@@ -23,9 +23,11 @@ function App() {
   };
 
   return (
-    <div>
-      <button onClick={() => setTheme("theme-default")}>Default</button>
-      <button onClick={() => setTheme("theme-dark")}>Dark</button>
+    <div className = "container">
+      <div className = "theme-button">
+        <button onClick={() => setTheme("theme-default")}>Default</button>
+        <button onClick={() => setTheme("theme-dark")}>Dark</button>
+      </div>
 
       <input
         value={message}
