@@ -27,6 +27,14 @@ body {
   min-height: 100vh;
 }
 
+.theme {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 1px solid;
+}
+
 .theme-default {
   --bg: white;
   --text: #111;

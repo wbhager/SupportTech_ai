@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [theme, setTheme] = useState("theme-default");
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+  }, [theme]);
 
   const sendMessage = async () => {
     const res = await fetch("http://localhost:8000/chat", {
@@ -19,9 +23,9 @@ function App() {
   };
 
   return (
-    <div className={theme}>
-    <button onClick={() => setTheme("theme-default")}>Default</button>
-    <button onClick={() => setTheme("theme-dark")}>Dark</button>
+    <div>
+      <button onClick={() => setTheme("theme-default")}>Default</button>
+      <button onClick={() => setTheme("theme-dark")}>Dark</button>
 
       <input
         value={message}
