@@ -23,18 +23,20 @@ function App() {
   };
 
   return (
-    <div className = "container">
-      <div className = "theme-button">
+    <div className = "page">
+      <div className = "theme-button page-top">
         <button onClick={() => setTheme("theme-default")}>Default</button>
         <button onClick={() => setTheme("theme-dark")}>Dark</button>
       </div>
 
-      <input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={sendMessage}>Send</button>
-      <p>{response}</p>
+      <div className = "page-bottom">
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <button onClick={sendMessage}>Send</button>
+        <p>{response}</p>
+      </div>
     </div>
   );
 }

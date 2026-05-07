@@ -20,23 +20,36 @@ body {
 }
 
 #root {
-  width: 1126px;
+  width: 826px;
   max-width: 100%;
   margin: 0 auto;
   border-inline: 1px solid;
   min-height: 100vh;
 }
 
-.container {
+.page {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.page-top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   gap: 12px;
   padding: 12px;
 }
 
-.theme-button {
+.page-bottom {
   display: flex;
-  justify-content: right;
+  flex-direction: column;  
+}
+
+
+.theme-button {
+  display: inline-flex;
   padding: 8px 16px;
   border: none;
   border-radius: var(--radius);

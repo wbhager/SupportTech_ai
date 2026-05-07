@@ -59,4 +59,6 @@ History on the project:
 
 5/5: Fixed theme-switching bug by controlling the theme at the root level instead of making it its own div element, tried out different layouts to display my color-theme toggle options, the input container, and the output response, determined that I want to have a label in the top right corner named color that, when hovered over, will show all of the buttons for the possible themes that can be chosen
 
+5/6: Fixed more formatting mistakes by putting the color theme options in the top right corner, keeping the input container, submit button, and response at the bottom of the page, and limiting the size of the container so that it is not too overly wide,
+
 MISSION: Create the first version of the system prompt that the model can utilize, implement hover-with-hidden-buttons design and up the number of color themes!
