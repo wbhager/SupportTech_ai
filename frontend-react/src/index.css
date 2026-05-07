@@ -48,6 +48,29 @@ body {
   flex-direction: column;  
 }
 
+.btn-default {
+  background: white;
+  color: #7c3aed;  /* bright purple */
+  border: 1.5px solid #7c3aed;
+}
+
+.btn-default:hover {
+  background: #7c3aed;
+  color: white;
+  border-color: white;
+}
+
+.btn-dark {
+  background: #111;  /* near black */
+  color: #6b21a8;  /* dark purple */
+  border: 1.5px solid #6b21a8;
+}
+
+.btn-dark:hover {
+  background: #6b21a8;
+  color: #111;
+  border-color: #111;
+}
 
 .theme-switcher {
   position: relative;
@@ -66,7 +89,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: #b8860b;
+  background: #d5ba35;
   opacity: 0;
   transition: opacity 0.5s ease;
   z-index: 0;
@@ -95,6 +118,15 @@ body {
 /* Buttons get the pointer cursor, not the box */
 .theme-options button {
   cursor: pointer;
+  padding: 5px 12px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
 /* Shine stays clipped inside the box via overflow: hidden */
@@ -127,20 +159,23 @@ body {
   }
 }
 
-
-
 .theme-switcher:hover .theme-options {
   opacity: 1;
   max-width: 200px;
 }
 
+.theme-label {
+  position: relative;
+  z-index: 2;
+  font-weight: 600;
+  transition: font-family 0.2s ease, letter-spacing 0.2s ease;
+}
 
-.theme {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 12px;
-  border-bottom: 1px solid;
+.theme-switcher:hover .theme-label {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-style: italic;
 }
 
 .theme-default {

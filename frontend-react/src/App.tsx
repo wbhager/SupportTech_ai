@@ -28,8 +28,8 @@ function App() {
         <div className= "theme-switcher">
           <span className = "theme-label"> Apply New Color Theme </span>
           <div className = "theme-options">
-            <button onClick={() => setTheme("theme-default")}>Default</button>
-            <button onClick={() => setTheme("theme-dark")}>Dark</button>
+            <button className="btn-default" onClick={() => setTheme("theme-default")}>Default</button>
+            <button className="btn-dark" onClick={() => setTheme("theme-dark")}>Dark</button>
           </div>
         </div>
       </div>
