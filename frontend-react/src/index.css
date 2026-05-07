@@ -45,15 +45,12 @@ body {
 .page-bottom {
   display: flex;
   align-items: center;
-  width: 60%;
   flex-direction: column;  
 }
 
 
-.theme-button {
+.theme-switcher {
   display: flex;
-  justify-content: flex-end;
-  width: fit-content;
   padding: 8px 16px;
   border: none;
   border-radius: var(--radius);
