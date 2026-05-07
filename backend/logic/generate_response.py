@@ -2,6 +2,9 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 model_name = "Qwen/Qwen2.5-1.5B-Instruct"
 hf_token = os.getenv("HF_TOKEN")
@@ -15,7 +18,8 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map="mps"
 )
 
-system_prompt = Path("system_prompt.txt").read_text()
+system_prompt = Path(__file__).parent.parent / "prompts" / "system_prompt.txt"
+system_prompt = system_prompt.read_text()
 # tool_prompt = Path("tool_prompt.txt").read_text()
 # formatter_prompt = Path("formatter_prompt.txt").read_text()
 
@@ -35,7 +39,7 @@ def generate_response(user_input):
 
     outputs = model.generate(
         **inputs,
-        max_new_tokens=300,
+        max_new_tokens=350,
         do_sample=True,
         temperature=0.7,
         top_p=0.9
@@ -43,6 +47,4 @@ def generate_response(user_input):
 
     response = tokenizer.decode(outputs[0][inputs.input_ids.shape[-1]:], skip_special_tokens=True)
 
-    # Remove prompt from output
-    response = response.split("Assistant:")[-1].strip()
     return response

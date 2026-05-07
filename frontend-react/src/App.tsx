@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -40,7 +41,7 @@ function App() {
           onChange={(e) => setMessage(e.target.value)}
         />
         <button onClick={sendMessage}>Send</button>
-        <p>{response}</p>
+        <ReactMarkdown>{response}</ReactMarkdown>
       </div>
     </div>
   );
