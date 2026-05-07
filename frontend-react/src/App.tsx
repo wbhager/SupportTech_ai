@@ -26,8 +26,11 @@ function App() {
     <div className = "page">
       <div className = "page-top">
         <div className= "theme-switcher">
-          <button onClick={() => setTheme("theme-default")}>Default</button>
-          <button onClick={() => setTheme("theme-dark")}>Dark</button>
+          <span className = "theme-label"> Apply New Color Theme </span>
+          <div className = "theme-options">
+            <button onClick={() => setTheme("theme-default")}>Default</button>
+            <button onClick={() => setTheme("theme-dark")}>Dark</button>
+          </div>
         </div>
       </div>
 

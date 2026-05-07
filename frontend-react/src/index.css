@@ -50,16 +50,89 @@ body {
 
 
 .theme-switcher {
-  display: flex;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease;
   padding: 8px 16px;
   border: none;
   border-radius: var(--radius);
   background: var(--primary);
   color: var(--text);
+}
+
+/* Gold background that fades in behind everything */
+.theme-switcher::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #b8860b;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+}
+
+.theme-switcher:hover::before {
+  opacity: 1;
+}
+
+/* The buttons, hidden by default */
+.theme-options {
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease 0.3s; /* slight delay so shine plays first */
+}
+
+/* Box expands and turns gold on hover */
+.theme-switcher:hover {
+  transform: scale(1.12);
+  border-color: darkgoldenrod;
+}
+
+/* Buttons get the pointer cursor, not the box */
+.theme-options button {
   cursor: pointer;
 }
 
+/* Shine stays clipped inside the box via overflow: hidden */
+.theme-switcher::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(184, 124, 11, 0.85) 50%,
+    transparent 100%
+  );
+  z-index: 1;
+}
 
+.theme-switcher:hover::after {
+  animation: goldShine 0.5s ease forwards;
+}
+
+@keyframes goldShine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
+
+
+.theme-switcher:hover .theme-options {
+  opacity: 1;
+  max-width: 200px;
+}
 
 
 .theme {

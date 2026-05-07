@@ -61,4 +61,6 @@ History on the project:
 
 5/6: Fixed more formatting mistakes by putting the color theme options in the top right corner, keeping the input container, submit button, and response at the bottom of the page, and limiting the size of the container so that it is not too overly wide, adjusted text-box size to be much smaller, spent time debugging the alignment of some of the items
 
+5/7: Completely fixed alignment issue with the color theme toggle,
+
 MISSION: Create the first version of the system prompt that the model can utilize, implement hover-with-hidden-buttons design and up the number of color themes! Make the text box grow as you start adding stuff to it, and have some sort of cool color-switch or mini-animation when you start typing stuff in!
