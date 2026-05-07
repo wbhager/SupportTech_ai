@@ -11,11 +11,10 @@ Don't forget command D for being able to edit multiple words at once! (Command +
 To-do:
 
     Backend:
-        - Debug the basic message request to the Qwen model that will allow my frontend and backend to finally be connected
-        - Create first system prompt and system prompt and apply them to user prompts
         - Determine what tools I would like to implement (RAG, etc.)
         - Create tool system prompt and implement the first tool
         - Review LoRA/PEFT/Quantization in order for concepts to stick
+        - Implement memory! The memory will likely be extremely small, so think about what unique thing I would most want stored that would be helpful
         - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
 
     Frontend:
@@ -23,7 +22,7 @@ To-do:
         - Brainstorm ideas for what I want my interface to look like
         - Start implementing the early ideas for my interface design, I can always add to it/change it later
         - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
-        - Start implementing a color scheme that can slowly be added to as the site starts to come along
+        - Continue developing color themes as the site gets more populated and there are more things to color in
 
 <br> <br> <br>
 
@@ -61,6 +60,10 @@ History on the project:
 
 5/6: Fixed more formatting mistakes by putting the color theme options in the top right corner, keeping the input container, submit button, and response at the bottom of the page, and limiting the size of the container so that it is not too overly wide, adjusted text-box size to be much smaller, spent time debugging the alignment of some of the items
 
-5/7: Completely fixed alignment issue with the color theme toggle,
+5/7: Completely fixed alignment issue with the color theme toggle, added really cool hover feature that adds a gold shine and reveals the button themes that also hover with their own color schemes, created first system prompt where the main focus is providing concise answers with short analogies, debugged and then successfully added markdown to my responses so that lengthier responses are made to be more readable, rewrote the generate_response function to follow along with Qwen's chat template, adjusted file paths to resolve relative to script instead of hardcoding
 
-MISSION: Create the first version of the system prompt that the model can utilize, implement hover-with-hidden-buttons design and up the number of color themes! Make the text box grow as you start adding stuff to it, and have some sort of cool color-switch or mini-animation when you start typing stuff in!
+FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
+previous agent.
+
+BACKEND MISSION: Implement (or start implementing) my first tool! Don't worry about RAG or memory just yet, implement an easier tool that makes sense and is
+relevant to what your agent can do.
