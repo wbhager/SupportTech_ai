@@ -67,5 +67,4 @@ History on the project:
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent.
 
-BACKEND MISSION: Implement (or start implementing) my first tool! Don't worry about RAG or memory just yet, implement an easier tool that makes sense and is
-relevant to what your agent can do.
+BACKEND MISSION: Implement (or get far implementing) web search! Use Tavily, decide what this workflow is gonna look like, and make it happen!
