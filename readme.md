@@ -1,6 +1,6 @@
 Hello! Welcome to my second full-length self-project. This one is called SupportTech.ai!
 
-I want to create my own AI agent that provides me with only the very best technical knowledge whenever I have questions. I plan to have a fully-functioning UI with a well-designed website that can remember previous questions you had. I want to be involved with every step of the AI life cycle apart from pre-training, which does not make as much sense to implement for this project. I will utilize a small, open-source model from huggingface that I can run and fine-tune on my computer with its current compute. I will use both GPT 5.1 and Claude Sonnet 4-5 as evaluation tools to check my outputs, and I will create a flywheel where the agent will be fine-tuned on these evaluated responses. PyTorch is the engine underneath the fine-tuning, and after I create my fine-tuning loop, I plan to adjust some PyTorch to make some very fine-grained decisions and potentially create a routing classifier with some PyTorch after that.
+I want to create my own AI agent that provides me with only the very best technical knowledge whenever I have questions. I plan to have a fully-functioning UI with a well-designed website that can remember previous questions you had. I want to be involved with every step of the AI life cycle apart from pre-training, which does not make as much sense to implement for this project. I will utilize a small, open-source model from huggingface that I can run and fine-tune on my computer with its current compute. I will use GPT 5.1 as my orchestrator that will determine what tool / process will be implemented, and Claude Sonnet 4-5 as my evaluation agent to check my outputs, and I will create a flywheel where the agent will be fine-tuned on these evaluated responses. PyTorch is the engine underneath the fine-tuning, and after I create my fine-tuning loop, I plan to adjust some PyTorch to make some very fine-grained decisions and potentially create a routing classifier with some PyTorch after that.
 
 When my project is finished, I want to make it so that I can run it whenever I want on my own computer, and I will have a video demonstration of how my agent works on GitHub because it costs money monthly renting computer power remotely for other people to use my agent.
 
@@ -11,11 +11,12 @@ Don't forget command D for being able to edit multiple words at once! (Command +
 To-do:
 
     Backend:
-        - Determine what tools I would like to implement (RAG, etc.)
-        - Create tool system prompt and implement the first tool
+        - Implement web search!
+        - Implement code interpreter!
+        - Implement file reader!
+        - Implement RAG!
+        - Implement memory!
         - Review LoRA/PEFT/Quantization in order for concepts to stick
-        - Implement memory! The memory will likely be extremely small, so think about what unique thing I would most want stored that would be helpful
-        - Gather some data for the model to be trained on, review it, and note down the link to it somewhere
 
     Frontend:
         - Watch the TechWithTim React tutorial to get a different perspective on beginning in React
