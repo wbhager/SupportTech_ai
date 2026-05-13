@@ -2,9 +2,6 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 model_name = "Qwen/Qwen2.5-1.5B-Instruct"
 hf_token = os.getenv("HF_TOKEN")
