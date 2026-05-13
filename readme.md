@@ -65,6 +65,10 @@ History on the project:
 
 5/11: Poured through several different AI service websites (Arc, Tines, Warp, Liveblock, Rasa) for AI implementation ideas on what consumers would want, website design ideas, and interesting smaller feature ideas that could make certain things easier, brainstormed some ideas for where I could take this project after completing the core components and decided upon this new path: Core agent + tools + RAG → data flywheel → fine-tuning loop → eval pipeline, decided upon the first tools I want to implement (web search, code interpreter, file reader), began looking into web search implementation
 
+5/12: Went back over the new direction for the project and started implementing a new file structure for the backend to incorporate additional new logic files such as, the gpt orchestator file and responder file where Qwen gets fed a system prompt depending on if tools were used or not, the first tool file (web search), log/data files, and eval files, went over a possible orchestration solution and looked closely at how it would be implemented
+
+5/13:
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent.
 
