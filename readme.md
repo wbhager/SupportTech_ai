@@ -67,9 +67,9 @@ History on the project:
 
 5/12: Went back over the new direction for the project and started implementing a new file structure for the backend to incorporate additional new logic files such as, the gpt orchestator file and responder file where Qwen gets fed a system prompt depending on if tools were used or not, the first tool file (web search), log/data files, and eval files, went over a possible orchestration solution and looked closely at how it would be implemented
 
-5/13:
+5/13: Studied up further on the transformer architecture, constructed the web_search.py file where I would conduct a web search using the Tavily API, set up the list of tools that GPT would scour before it would decide which tool should be called and added the defining characteristics of a web_search, learned more about how orchestrators operate for agents such as my own, removed some redundant code in my generate_response.py file
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent.
 
-BACKEND MISSION: Implement (or get far implementing) web search! Use Tavily, decide what this workflow is gonna look like, and make it happen!
+BACKEND MISSION: Finish setting up the orchestration and test it out! Make sure that it is not calling a web search every time, debug to make sure of this, also find a way to add the URL that was used if web_search is used. Afterwards, start setting up the code interpreter!
