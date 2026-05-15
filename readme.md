@@ -69,6 +69,8 @@ History on the project:
 
 5/13: Studied up further on the transformer architecture, constructed the web_search.py file where I would conduct a web search using the Tavily API, set up the list of tools that GPT would scour before it would decide which tool should be called and added the defining characteristics of a web_search, learned more about how orchestrators operate for agents such as my own, removed some redundant code in my generate_response.py file
 
+5/14: Updated GitHub and my file explorer with the name of the project instead of the project placeholder
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent.
 
