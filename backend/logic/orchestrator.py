@@ -24,3 +24,10 @@ tools = [
     }
 ]
 
+def orchestrate(user_input):
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant that can use tools to answer questions."},
+        {"role": "user", "content": user_input}
+    ]
+    
+
