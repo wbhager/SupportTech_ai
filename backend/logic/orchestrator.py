@@ -25,9 +25,21 @@ tools = [
 ]
 
 def orchestrate(user_input):
-    messages = [
-        {"role": "system", "content": "You are a helpful assistant that can use tools to answer questions."},
-        {"role": "user", "content": user_input}
-    ]
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": user_input}],
+        tools=tools,
+        tool_choice="auto"
+    )
+
+    tool_choice = response.choices[0].message
+
+    if choice.tool_calls:
+        tool_name = choice.tool_calls[0].name
+        tool_args = choice.tool_calls[0].arguments
+        return tool_name, tool_args
+    else:
+        return "No tool call", None
+
     
 
