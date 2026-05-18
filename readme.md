@@ -71,7 +71,9 @@ History on the project:
 
 5/14: Updated GitHub and my file explorer with the name of the project instead of the project placeholder
 
-5/16: Debugged faulty virtual environment when the project stopped loading after I updated the name of the project, where I created a new venv with the same dependencies after force installing uvicorn and cleared the cache so shell was able to find the new location for uvicorn,
+5/17: Debugged faulty virtual environment when the project stopped loading after I updated the name of the project, where I created a new venv with the same dependencies after force installing uvicorn and cleared the cache so shell was able to find the new location for uvicorn
+
+5/18: Added first version of newly-designed submit button and input-text box,
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent.

@@ -1,26 +1,46 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect , useRef} from "react";
 import ReactMarkdown from "react-markdown";
 
 function App() {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [theme, setTheme] = useState("theme-default");
+  const [isLoading, setIsLoading] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     document.documentElement.className = theme;
   }, [theme]);
 
-  const sendMessage = async () => {
-    const res = await fetch("http://localhost:8000/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message }),
-    });
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  }, [message]);
 
-    const data = await res.json();
-    setResponse(data.response);
+  const sendMessage = async () => {
+    if (!message.trim() || isLoading) return; // guard
+    setIsLoading(true);
+    try {
+      const res = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+      const data = await res.json();
+      setResponse(data.response);
+      setMessage(""); // clear after send
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   return (
@@ -35,12 +55,21 @@ function App() {
         </div>
       </div>
 
-      <div className = "page-bottom">
-        <input
+      <div className="page-bottom">
+        {/* replace <input> with <textarea> */}
+        <textarea
+          ref={textareaRef}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          disabled={isLoading}
+          placeholder="Type a message… (Enter to send, Shift+Enter for newline)"
+          rows={1}
+          className="chat-input"
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage} disabled={isLoading} className="send-btn">
+          {isLoading ? "Sending…" : "Send"}
+        </button>
         <ReactMarkdown>{response}</ReactMarkdown>
       </div>
     </div>
