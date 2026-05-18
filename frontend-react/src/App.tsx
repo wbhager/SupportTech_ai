@@ -1,12 +1,20 @@
 import { useState, useEffect , useRef} from "react";
 import ReactMarkdown from "react-markdown";
 
+type Message = {
+  id: number;
+  text: string;
+  role: "user" | "assistant";
+  popped: boolean;
+};
+
 function App() {
   const [message, setMessage] = useState("");
-  const [response, setResponse] = useState("");
+  const [messages, setMessages] = useState<Message[]>([]);
   const [theme, setTheme] = useState("theme-default");
   const [isLoading, setIsLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.documentElement.className = theme;
@@ -19,18 +27,37 @@ function App() {
     el.style.height = el.scrollHeight + "px";
   }, [message]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const addMessage = (text: string, role: "user" | "assistant") => {
+    const id = Date.now();
+    // Phase 1: tiny floating bubble
+    setMessages((prev) => [...prev, { id, text, role, popped: false }]);
+  
+    // Phase 2: pop open into text bubble after it "floats" up
+    setTimeout(() => {
+      setMessages((prev) =>
+        prev.map((m) => (m.id === id ? { ...m, popped: true } : m))
+      );
+    }, 800);
+  };
+
   const sendMessage = async () => {
-    if (!message.trim() || isLoading) return; // guard
+    if (!message.trim() || isLoading) return;
+    const userText = message;
+    setMessage("");
+    addMessage(userText, "user");
     setIsLoading(true);
     try {
       const res = await fetch("http://localhost:8000/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message: userText }),
       });
       const data = await res.json();
-      setResponse(data.response);
-      setMessage(""); // clear after send
+      addMessage(data.response, "assistant");
     } finally {
       setIsLoading(false);
     }
@@ -55,8 +82,31 @@ function App() {
         </div>
       </div>
 
+      <div className="messages-feed">
+        {messages.map((m) => (
+          <div key={m.id} className={`bubble-row ${m.role}`}>
+            <div className={`bubble-outer ${m.popped ? "popped" : "floating"}`}>
+              <div className="bubble-dot" />
+              <div className="bubble-text">
+                <ReactMarkdown>{m.text}</ReactMarkdown>
+              </div>
+            </div>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="bubble-row assistant">
+            <div className="bubble-outer popped">
+              <div className="bubble-dot" />
+              <div className="bubble-text loading-bubble">
+                <span /><span /><span />
+              </div>
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
       <div className="page-bottom">
-        {/* replace <input> with <textarea> */}
         <textarea
           ref={textareaRef}
           value={message}
@@ -70,7 +120,6 @@ function App() {
         <button onClick={sendMessage} disabled={isLoading} className="send-btn">
           {isLoading ? "Sending…" : "Send"}
         </button>
-        <ReactMarkdown>{response}</ReactMarkdown>
       </div>
     </div>
   );
