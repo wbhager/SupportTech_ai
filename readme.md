@@ -73,9 +73,9 @@ History on the project:
 
 5/17: Debugged faulty virtual environment when the project stopped loading after I updated the name of the project, where I created a new venv with the same dependencies after force installing uvicorn and cleared the cache so shell was able to find the new location for uvicorn
 
-5/18: Added first version of newly-designed submit button and input-text box,
+5/18: Added first version of newly-designed submit button and input-text box, started experimenting with unique ways for the messages to populate the screen and implemented the first version of messages coming in via colored water bubbles, finished implementing the first version of the orchestrate.py file which will have gpt be able to pick which tool, if any, should be used, implemented the full first version of the responder.py file that will give qwen the additional tool data needed to answer a question as well as a system prompt for qwen to look over and decide upon an answer given user input
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
-previous agent.
+previous agent. Also, fix the bubbles so that it works for the user side!
 
-BACKEND MISSION: Finish setting up the orchestration and test it out! Make sure that it is not calling a web search every time, debug to make sure of this, also find a way to add the URL that was used if web_search is used. Afterwards, start setting up the code interpreter!
+BACKEND MISSION: Set the libraries to call for the orchestrator and responder files instead of the generate_response file and test it out! Make sure that it is not calling a web search every time, debug to make sure of this, also find a way to add the URL that was used if web_search is used. Afterwards, start setting up the code interpreter!
