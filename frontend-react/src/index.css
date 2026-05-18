@@ -226,6 +226,7 @@ body {
 }
 
 /* ── feed ── */
+/* ── feed ── */
 .messages-feed {
   flex: 1;
   overflow-y: auto;
@@ -235,48 +236,32 @@ body {
   gap: 10px;
 }
 
-/* row controls which side the bubble sits on */
 .bubble-row {
   display: flex;
 }
 .bubble-row.user      { justify-content: flex-end; }
 .bubble-row.assistant { justify-content: flex-start; }
 
-/* ── wrapper that switches between dot and full bubble ── */
-.bubble-outer {
-  position: relative;
-  max-width: 72%;
+/* pre-pop: invisible placeholder so layout doesn't jump */
+.bubble-outer.pre-pop {
+  opacity: 0;
+  transform: scale(0.3);
 }
 
-/* ── PHASE 1: the small floating dot ── */
-.bubble-dot {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 0;
+/* popped: springs open */
+.bubble-outer.popped {
   opacity: 1;
-  transition: opacity 0.15s ease;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.5, 0.64, 1);
 }
 
-.bubble-row.user      .bubble-dot { background: var(--primary); right: 0; }
-.bubble-row.assistant .bubble-dot { background: rgba(128,128,128,0.35); left: 0; }
-
-/* ── PHASE 2: the text bubble ── */
 .bubble-text {
+  max-width: 72%;
   padding: 10px 14px;
   border-radius: 18px;
   line-height: 1.5;
   font-size: 0.95rem;
   word-break: break-word;
-  opacity: 0;
-  transform: scale(0.5);
-  transform-origin: bottom right;
-  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
-}
-
-.bubble-row.assistant .bubble-text {
-  transform-origin: bottom left;
 }
 
 .bubble-row.user .bubble-text {
@@ -291,31 +276,8 @@ body {
   border-bottom-left-radius: 4px;
 }
 
-/* strip markdown margins */
-.bubble-text p        { margin: 0 0 0.4em; }
+.bubble-text p          { margin: 0 0 0.4em; }
 .bubble-text p:last-child { margin: 0; }
-
-/* ── FLOATING state: dot rises, text hidden ── */
-.bubble-outer.floating {
-  animation: floatUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-.bubble-outer.floating .bubble-dot  { opacity: 1; }
-.bubble-outer.floating .bubble-text { opacity: 0; transform: scale(0.5); }
-
-/* ── POPPED state: dot gone, text revealed ── */
-.bubble-outer.popped .bubble-dot  { opacity: 0; pointer-events: none; }
-.bubble-outer.popped .bubble-text {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* the float-up keyframe */
-@keyframes floatUp {
-  0%   { transform: translateY(40px); opacity: 0.4; }
-  60%  { transform: translateY(-6px); opacity: 1; }
-  100% { transform: translateY(0);    opacity: 1; }
-}
 
 /* ── typing dots ── */
 .loading-bubble {
@@ -337,6 +299,6 @@ body {
 .loading-bubble span:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes bounce {
-  0%, 60%, 100% { transform: translateY(0);   opacity: 0.4; }
-  30%            { transform: translateY(-6px); opacity: 1;   }
+  0%, 60%, 100% { transform: translateY(0);    opacity: 0.4; }
+  30%            { transform: translateY(-6px); opacity: 1; }
 }
