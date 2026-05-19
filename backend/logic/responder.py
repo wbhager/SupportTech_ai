@@ -30,7 +30,7 @@ def respond_to_user(user_input, tool_result=None, system_prompt=system_prompt):
     ]
 
     text = tokenizer.apply_chat_template(messages, tokenize = False, add_generation_prompt = True)
-    inputs = tokenizer(text, return_tensors="pt")
-    outputs = model.generate(**inputs, max_new_tokens = 512, do_sample = True, temperature = 0.7, top_p = 0.9).to(model.device)
+    inputs = tokenizer(text, return_tensors="pt").to(model.device)
+    outputs = model.generate(**inputs, max_new_tokens = 512, do_sample = True, temperature = 0.7, top_p = 0.9)
 
-    return tokenizer.decode(outputs[0], skip_special_tokens = True)
+    return tokenizer.decode(outputs[0][inputs.input_ids.shape[-1]:], skip_special_tokens = True)
