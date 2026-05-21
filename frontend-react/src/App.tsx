@@ -42,53 +42,50 @@ function App() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const addMessage = (text: string, role: "user" | "assistant") => {
-    const id = Date.now() + Math.random();
-
-    // get start position (textarea)
-    const inputEl = textareaRef.current;
-    const inputRect = inputEl?.getBoundingClientRect();
-    const startX = inputRect
-      ? inputRect.left + inputRect.width / 2
-      : window.innerWidth / 2;
-    const startY = inputRect ? inputRect.top : window.innerHeight - 100;
-
-    // get end position (top of feed, left or right)
-    const feedEl = feedRef.current;
-    const feedRect = feedEl?.getBoundingClientRect();
-    const endX = feedRect
-      ? role === "user"
-        ? feedRect.right - 60
-        : feedRect.left + 60
-      : role === "user"
-      ? window.innerWidth - 80
-      : 80;
-    const endY = feedRect ? feedRect.top + 40 : 80;
-
-    // launch flying bubble
-    setFlyingBubbles((prev) => [
-      ...prev,
-      { id, role, startX, startY, endX, endY },
-    ]);
-
-    // after animation completes, remove flying bubble and add real message
-    setTimeout(() => {
-      setFlyingBubbles((prev) => prev.filter((b) => b.id !== id));
-      setMessages((prev) => [...prev, { id, text, role, popped: false }]);
-      setTimeout(() => {
-        setMessages((prev) =>
-          prev.map((m) => (m.id === id ? { ...m, popped: true } : m))
-        );
-      }, 50);
-    }, 2200);
-  };
 
   const sendMessage = async () => {
     if (!message.trim() || isLoading) return;
     const userText = message;
     setMessage("");
-    addMessage(userText, "user");
+  
+    // Capture rects synchronously before any state changes
+    const inputRect = textareaRef.current?.getBoundingClientRect();
+    const feedRect = feedRef.current?.getBoundingClientRect();
+  
+    // Helper to build a flying bubble using pre-captured rects
+    const launchBubble = (text: string, role: "user" | "assistant") => {
+      const id = Date.now() + Math.random();
+  
+      const startX = inputRect
+        ? inputRect.left + inputRect.width / 2
+        : window.innerWidth / 2;
+      const startY = inputRect ? inputRect.top : window.innerHeight - 100;
+  
+      const endX = feedRect
+      ? role === "user"
+        ? Math.min(feedRect.right - 60, window.innerWidth - 80)
+        : Math.max(feedRect.left + 60, 80)
+      : role === "user" ? window.innerWidth - 80 : 80;
+  
+      // Fix: target bottom of feed, not top
+      const endY = feedRect ? feedRect.bottom - 60 : window.innerHeight - 200;
+  
+      setFlyingBubbles((prev) => [...prev, { id, role, startX, startY, endX, endY }]);
+  
+      setTimeout(() => {
+        setFlyingBubbles((prev) => prev.filter((b) => b.id !== id));
+        setMessages((prev) => [...prev, { id, text, role, popped: false }]);
+        setTimeout(() => {
+          setMessages((prev) =>
+            prev.map((m) => (m.id === id ? { ...m, popped: true } : m))
+          );
+        }, 50);
+      }, 2200);
+    };
+  
+    launchBubble(userText, "user");
     setIsLoading(true);
+  
     try {
       const res = await fetch("http://localhost:8000/chat", {
         method: "POST",
@@ -96,7 +93,7 @@ function App() {
         body: JSON.stringify({ message: userText }),
       });
       const data = await res.json();
-      addMessage(data.response, "assistant");
+      launchBubble(data.response, "assistant");
     } finally {
       setIsLoading(false);
     }
