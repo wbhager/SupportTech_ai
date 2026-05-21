@@ -1,6 +1,9 @@
 import os
 import json
 from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
 
@@ -9,7 +12,7 @@ tools = [
         "type": "function",
         "function": {
             "name": "web_search",
-            "description": "Search the web for current information, recent events, or facts that may have changed over time. Do NOT use for general knowledge, conceptual questions, or anything that doesn't require up to date information.",
+            "description": "Search the web for any information about current events, scores, weather, prices, or anything that may have changed. When in doubt, search.",
             "parameters": {
                 "type": "object",
                 "properties": {
