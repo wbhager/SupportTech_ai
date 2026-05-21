@@ -77,7 +77,7 @@ History on the project:
 
 5/19: Fixed up some calling logic so that my files called orchestrate and responder correctly instead of the generate_response file, added web_search logic inside of the chat endpoint so that web search can actually be implemented, spent time debugging the chat endpoint because web search was not correctly being called, spent time debugging the bubble creation and trying to determine why the bubbles were being created only occasionally on the assistant side and not at all for the user side
 
-5/20: Tested to see if web search was working by re-wording a descriptor field to allow to web search much more often and prompting it with real-time data such as the weather and recent sports questions, finished debugging the chat endpoint by realizing that I didn't even import my function into the chat endpoint file originally,
+5/20: Tested to see if web search was working by re-wording a descriptor field to allow to web search much more often and prompting it with real-time data such as the weather and recent sports questions, finished debugging the chat endpoint by realizing that I didn't even import my function into the chat endpoint file originally, spent further time debugging the bubbles and was able to get the assistant bubble to appear consistently, but it is now appearing way too low and the user bubble is still not displaying
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side!
