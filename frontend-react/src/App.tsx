@@ -61,14 +61,15 @@ function App() {
         : window.innerWidth / 2;
       const startY = inputRect ? inputRect.top : window.innerHeight - 100;
   
-      const endX = feedRect
-      ? role === "user"
-        ? Math.min(feedRect.right - 60, window.innerWidth - 80)
-        : Math.max(feedRect.left + 60, 80)
-      : role === "user" ? window.innerWidth - 80 : 80;
-  
-      // Fix: target bottom of feed, not top
-      const endY = feedRect ? feedRect.bottom - 60 : window.innerHeight - 200;
+      // Placing bubble at correct position
+      const endRect = messagesEndRef.current?.getBoundingClientRect();
+      const endY = endRect ? endRect.top : feedRect ? feedRect.bottom - 60 : window.innerHeight - 200;
+
+      const endX = endRect
+        ? role === "user"
+          ? Math.min(endRect.right - 60, window.innerWidth - 80)
+          : Math.max(endRect.left + 60, 80)
+        : role === "user" ? window.innerWidth - 80 : 80;
   
       setFlyingBubbles((prev) => [...prev, { id, role, startX, startY, endX, endY }]);
   
