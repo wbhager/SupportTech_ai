@@ -239,8 +239,12 @@ body {
 .bubble-row {
   display: flex;
 }
-.bubble-row.user      { justify-content: flex-end; }
+.bubble-row.user      { justify-content: flex-end; width: 100%;}
 .bubble-row.assistant { justify-content: flex-start; }
+
+.bubble-outer {
+  max-width: 72%
+}
 
 /* pre-pop: invisible placeholder so layout doesn't jump */
 .bubble-outer.pre-pop {
@@ -256,7 +260,6 @@ body {
 }
 
 .bubble-text {
-  max-width: 72%;
   padding: 10px 14px;
   border-radius: 18px;
   line-height: 1.5;
