@@ -77,7 +77,11 @@ History on the project:
 
 5/19: Fixed up some calling logic so that my files called orchestrate and responder correctly instead of the generate_response file, added web_search logic inside of the chat endpoint so that web search can actually be implemented, spent time debugging the chat endpoint because web search was not correctly being called, spent time debugging the bubble creation and trying to determine why the bubbles were being created only occasionally on the assistant side and not at all for the user side
 
-5/20: Tested to see if web search was working by re-wording a descriptor field to allow to web search much more often and prompting it with real-time data such as the weather and recent sports questions, finished debugging the chat endpoint by realizing that I didn't even import my function into the chat endpoint file originally, spent further time debugging the bubbles and was able to get the assistant bubble to appear consistently, but it is now appearing way too low and the user bubble is still not displaying
+5/20: Tested to see if web search was working by re-wording a descriptor field to allow to web search much more often and prompting it with real-time data such as the weather and recent sports questions, finished debugging the chat endpoint by realizing that I didn't even import my function into the chat endpoint file originally, spent further time debugging the bubbles and was able to get the assistant bubble to appear consistently but way too low, corrected the app.tsx code to get the bubbles to float to the correct spots and sometimes create the user bubble, but bubble consistency is still a problem
+
+5/21: Spent time trying to diagnose which background process from my code was causing my computer to overheat, was not able to find the singular cause but I do know the process was running for over a day and it was resolved by force quitting the process (which may have been 2 different processes according to task manager) and restarting my computer
+
+5/22: Updated the max size for Tavily search requests so that Qwen is not overloaded with too much information to process
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side!

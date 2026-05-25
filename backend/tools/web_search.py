@@ -7,4 +7,4 @@ def web_search(query):
     response = client.search(query)
     results = response["results"]
     formatted = "\n\n".join([r["content"] for r in results])
-    return formatted
+    return formatted[:2000]
