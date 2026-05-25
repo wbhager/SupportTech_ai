@@ -83,6 +83,8 @@ History on the project:
 
 5/22: Updated the max size for Tavily search requests so that Qwen is not overloaded with too much information to process
 
+5/23: FINALLY fixed the bubble formatting issues after much debugging and got them to align perfectly on both sides without extending too far out, begun constructing file reading tool that will take in all sorts of files, including pdfs, and even tables from those pdfs because some of the files that I would be reading from would be things like research papers
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side!
 
