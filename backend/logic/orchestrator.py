@@ -25,6 +25,28 @@ tools = [
             }
         }
     }
+
+    {
+        "type": "function",
+        "function": {
+            "name": "file_reader",
+            "description": "Read the contents of a file. The file can be in PDF, TXT, MD, PY, or JSON format.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "file_path": {
+                        "type": "string",
+                        "description": "The path to the file to be read.",
+                    },
+                    "query": {
+                        "type": "string",
+                        "description": "What the user wnats to know or do with the file",
+                    }
+                },
+                "required": ["file_path"]
+            }
+        }
+    }
 ]
 
 def orchestrate(user_input):
