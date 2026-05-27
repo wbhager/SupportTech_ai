@@ -24,8 +24,7 @@ tools = [
                 "required": ["query"]
             }
         }
-    }
-
+    },
     {
         "type": "function",
         "function": {
