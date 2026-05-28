@@ -29,7 +29,6 @@ handlers = {
 }
 
 def file_reader(file_path, query):
-    
     ext = os.path.splitext(file_path)[1].lower()
     if ext in handlers:
         handler = handlers[ext]

@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from backend.logic.orchestrator import orchestrate
 from backend.logic.responder import respond_to_user
 from backend.tools.web_search import web_search
+from backend.tools.file_reader import file_reader
 import json
 
 router = APIRouter()
@@ -23,6 +24,11 @@ async def chat_endpoint(message: Message):
         searching = True
         query = json.loads(tool_args)["query"]
         tool_result = web_search(query)
+
+    if tool_name == "file_reader":
+        file_path = json.loads(tool_args)["file_path"]
+        query = json.loads(tool_args)["query"]
+        tool_result = file_reader(file_path, query)
 
     response = respond_to_user(message.message, tool_result=tool_result)
     return {"response": response, "searching": searching}
