@@ -1,5 +1,6 @@
 import pdfplumber
 import os
+import json
 
 # pdf_locator_path = /Users/willhager/Downloads
 
