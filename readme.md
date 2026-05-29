@@ -11,15 +11,16 @@ Don't forget command D for being able to edit multiple words at once! (Command +
 To-do:
 
     Backend:
-        - Implement web search!
-        - Implement code interpreter!
-        - Implement file reader!
+        - Debug file reader!
+        - Implement new tool!
         - Implement RAG (LangChain)!
         - Implement memory!
         - Review LoRA/PEFT/Quantization in order for concepts to stick
+        - Begin the fine-tuning evaluation flywheel!
 
     Frontend:
-        - Watch the TechWithTim React tutorial to get a different perspective on beginning in React
+        - Continue the TechWithTim React tutorial to get a different perspective on beginning in React
+        - Fix the occaionally-spawning bubbles situation and make them always spawn
         - Brainstorm ideas for what I want my interface to look like
         - Start implementing the early ideas for my interface design, I can always add to it/change it later
         - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
@@ -83,9 +84,15 @@ History on the project:
 
 5/22: Updated the max size for Tavily search requests so that Qwen is not overloaded with too much information to process
 
-5/25: FINALLY fixed the bubble formatting issues after much debugging and got them to align perfectly on both sides without extending too far out, begun constructing file reading tool that will take in all sorts of files, including pdfs, and even tables from those pdfs because some of the files that I would be reading from would be things like research papers
+5/25: FINALLY fixed the bubble formatting issues after much debugging and got them to align perfectly on both sides without extending too far out, begun constructing file reading tool that will take in all sorts of files, including pdfs, and even tables from those pdfs because some of the files that I would be reading from would be things like research papers, upgraded the max size for Tavily search requests again since I ran into another not-enough-context situation
+
+5/26: Learned a bit more about the two main file_reading libraries and decided to go with pdfplumber, wrote the file reading function to read in files with a file path hardcoded since I would likely be reading the files in from the same place
+
+5/27: Changed my mind and altered the file reading function to require a file path argument since it would add flexibility as to what files across a computer you can read, created 5 different handler functions to handle each type of file that could be read in (pdf, md, txt, py, and json), merged the md/txt/py handlers together since their logic was the exact same, added the file reading tool to the chat endpoint so that it could be used
+
+5/28: Went back over React basics to see how much better I understood the underlying concepts and structure, spent a while testing the different file types and attempting to debug my plaintext handler that seems to only output json when it encounters it in files that are not json files, updated the augmented questions to give to Qwen for additional context for each question so that each tool gets a different question (which will likely be key to helping solve this issue)
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
-previous agent. Also, fix the bubbles so that it works for the user side!
+previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 
-BACKEND MISSION: Set the libraries to call for the orchestrator and responder files instead of the generate_response file and test it out! Make sure that it is not calling a web search every time, debug to make sure of this, also find a way to add the URL that was used if web_search is used. Afterwards, start setting up the code interpreter!
+BACKEND MISSION: Finish debugging the plaintext handler that keeps outputting json when I give it my old ai agent project system prompt with json tools, figure out another new tool to add instead of a code interpreter and implement it!
