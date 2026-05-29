@@ -30,5 +30,5 @@ async def chat_endpoint(message: Message):
         query = json.loads(tool_args)["query"]
         tool_result = file_reader(file_path, query)
 
-    response = respond_to_user(message.message, tool_result=tool_result)
+    response = respond_to_user(message.message, tool_name=tool_name, tool_result=tool_result)
     return {"response": response, "searching": searching}

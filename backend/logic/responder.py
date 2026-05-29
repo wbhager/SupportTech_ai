@@ -18,11 +18,14 @@ model = AutoModelForCausalLM.from_pretrained(
 system_prompt = Path(__file__).parent.parent / "prompts" / "system_prompt.txt"
 system_prompt = system_prompt.read_text()
 
-def respond_to_user(user_input, tool_result=None, system_prompt=system_prompt):
+def respond_to_user(user_input, tool_name=None, tool_result=None, system_prompt=system_prompt):
     if tool_result:
-        augmented_message = f"Use this information to answer: \n{tool_result}\nQuestion: \n{user_input}"
-    else:
-        augmented_message = user_input
+        if tool_name == "file_reader":
+            augmented_message = f"The following is file contents to analyze as text only, do not output json UNLESS the extension type is .json and it is used in conjunction to help provide context:\n\n{tool_result}\n\nQuestion: {user_input}"
+        elif tool_name == "web_search":
+            augmented_message = f"Use this search result to answer:\n\n{tool_result}\n\nQuestion: {user_input}"
+        else:
+            augmented_message = f"Use this information to answer:\n\n{tool_result}\n\nQuestion: {user_input}"
     
     messages = [
         {"role": "system", "content": system_prompt},
