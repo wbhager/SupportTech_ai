@@ -22,7 +22,20 @@ handlers = {
     ".txt": handle_plaintext,
     ".md": handle_plaintext,
     ".py": handle_plaintext,
-    ".json": handle_json,
+    ".js":   handle_plaintext,
+    ".ts":   handle_plaintext,
+    ".jsx":  handle_plaintext,
+    ".tsx":  handle_plaintext,
+    ".html": handle_plaintext,
+    ".css":  handle_plaintext,
+    ".yaml": handle_plaintext,
+    ".yml":  handle_plaintext,
+    ".env":  handle_plaintext,
+    ".sh":   handle_plaintext,
+    ".sql":  handle_plaintext,
+    ".csv":  handle_plaintext,
+    ".json": handle_json
+
 }
 
 def file_reader(file_path, query):

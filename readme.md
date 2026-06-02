@@ -11,9 +11,8 @@ Don't forget command D for being able to edit multiple words at once! (Command +
 To-do:
 
     Backend:
-        - Debug file reader!
-        - Implement new tool!
-        - Implement RAG (LangChain)!
+        - Implement system info / log parser!
+        - Implement RAG (LangChain) (truncate or chunk large files first)!
         - Implement memory!
         - Review LoRA/PEFT/Quantization in order for concepts to stick
         - Begin the fine-tuning evaluation flywheel!
@@ -92,7 +91,9 @@ History on the project:
 
 5/28: Went back over React basics to see how much better I understood the underlying concepts and structure, spent a while testing the different file types and attempting to debug my plaintext handler that seems to only output json when it encounters it in files that are not json files, updated the augmented questions to give to Qwen for additional context for each question so that each tool gets a different question (which will likely be key to helping solve this issue)
 
+6/2: Continued debugging the file_handler to see if it could still handle files with mixed file types but decided to put this problem away potentially for another day, finished testing the other file types and was able to read everything in including straight json files, added several more file types that Qwen will be able to parse and elaborate on, did research on several new tools I could build next before rag and memory and decided on a system info / log parser tool
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 
-BACKEND MISSION: Finish debugging the plaintext handler that keeps outputting json when I give it my old ai agent project system prompt with json tools, figure out another new tool to add instead of a code interpreter and implement it!
+BACKEND MISSION: Implement system info/log parser!
