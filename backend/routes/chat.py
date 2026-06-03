@@ -28,12 +28,12 @@ async def chat_endpoint(message: Message):
 
     if tool_name == "file_reader":
         file_path = json.loads(tool_args)["file_path"]
-        query = json.loads(tool_args)["query"]
+        query = json.loads(tool_args).get("query", "")
         tool_result = file_reader(file_path, query)
 
     if tool_name == "parse_log":
         text = json.loads(tool_args)["text"]
-        query = json.loads(tool_args)["query"]
+        query = json.loads(tool_args).get("query", "")
         tool_result = file_reader(text, query)
 
     response = respond_to_user(message.message, tool_name=tool_name, tool_result=tool_result)

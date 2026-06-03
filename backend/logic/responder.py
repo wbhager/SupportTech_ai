@@ -24,8 +24,11 @@ def respond_to_user(user_input, tool_name=None, tool_result=None, system_prompt=
             augmented_message = f"The following is file contents to analyze as text only, do not output json UNLESS the extension type is .json and it is used in conjunction to help provide context:\n\n{tool_result}\n\nQuestion: {user_input}"
         elif tool_name == "web_search":
             augmented_message = f"Use this search result to answer:\n\n{tool_result}\n\nQuestion: {user_input}"
+        elif tool_name == "parse_log":
+            augmented_message = f"The following is log contents and additional context information to analyze as text only, and it is used in conjunction to help provide context:\n\n{tool_result}\n\nQuestion: {user_input}"
         else:
             augmented_message = f"Use this information to answer:\n\n{tool_result}\n\nQuestion: {user_input}"
+        
     
     messages = [
         {"role": "system", "content": system_prompt},
