@@ -93,6 +93,8 @@ History on the project:
 
 6/2: Continued debugging the file_handler to see if it could still handle files with mixed file types but decided to put this problem away potentially for another day, finished testing the other file types and was able to read everything in including straight json files, added several more file types that Qwen will be able to parse and elaborate on, did research on several new tools I could build next before rag and memory and decided on a system info / log parser tool
 
+6/3:
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 
