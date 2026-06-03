@@ -45,6 +45,27 @@ tools = [
                 "required": ["file_path"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "parse_log",
+            "description": "Parses raw stack traces, error logs, and terminal output into structured data. Use when the user pastes an error, traceback, or any messy terminal output.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "description": "The raw stack trace, error message, or terminal output to parse."
+                    },
+                    "query": {
+                        "type": "string",
+                        "description": "Optional additional context or hypothesis from the user about what the error might be doing."
+                    }
+                },
+                "required": ["text"]
+            }
+        }
     }
 ]
 
