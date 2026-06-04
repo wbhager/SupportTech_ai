@@ -34,7 +34,7 @@ async def chat_endpoint(message: Message):
     if tool_name == "parse_log":
         text = json.loads(tool_args)["text"]
         query = json.loads(tool_args).get("query", "")
-        tool_result = file_reader(text, query)
+        tool_result = parse_python_traceback(text, query)
 
     response = respond_to_user(message.message, tool_name=tool_name, tool_result=tool_result)
     return {"response": response, "searching": searching}
