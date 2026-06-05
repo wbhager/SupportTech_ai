@@ -2,6 +2,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from pathlib import Path
 import os
+from backend.tools.memory import add_to_history, get_trimmed_history
 
 model_name = "Qwen/Qwen2.5-1.5B-Instruct"
 hf_token = os.getenv("HF_TOKEN")
@@ -27,11 +28,16 @@ def respond_to_user(user_input, tool_name=None, tool_result=None, system_prompt=
         elif tool_name == "parse_log":
             augmented_message = f"The following is log contents and additional context information to analyze as text only, and it is used in conjunction to help provide context:\n\n{tool_result}\n\nQuestion: {user_input}"
         else:
-            augmented_message = f"Use this information to answer:\n\n{tool_result}\n\nQuestion: {user_input}"
-        
+            augmented_message = user_input
+
+    add_to_history(conv_id, role = "user", content = user_input)
+
+    history = get_trimmed_history(conv_id, max_messages = 10)
+    clean_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
     
     messages = [
         {"role": "system", "content": system_prompt},
+        *clean_history,
         {"role": "user", "content": augmented_message}
     ]
 
