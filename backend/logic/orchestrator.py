@@ -2,6 +2,7 @@ import os
 import json
 from openai import OpenAI
 from dotenv import load_dotenv
+from backend.tools.memory import add_to_memory, get_trimmed_memory
 
 load_dotenv()
 
@@ -69,10 +70,15 @@ tools = [
     }
 ]
 
-def orchestrate(user_input):
+def orchestrate(user_input: str, conv_id: str):
+    add_to_memory(conv_id, "user", user_input)
+
+    history = get_trimmed_memory(conv_id, max_messages = 5)
+    clean_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
+
     response = client.chat.completions.create(
         model="gpt-4o",
-        messages=[{"role": "user", "content": user_input}],
+        messages=clean_history,
         tools=tools,
         tool_choice="auto"
     )
