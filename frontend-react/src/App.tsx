@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
+const [convId] = useState(() => crypto.randomUUID());
+
 type Message = {
   id: number;
   text: string;
@@ -91,7 +93,7 @@ function App() {
       const res = await fetch("http://localhost:8000/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userText }),
+        body: JSON.stringify({ conv_id: convId, message: userText }),
       });
       const data = await res.json();
       launchBubble(data.response, "assistant");
