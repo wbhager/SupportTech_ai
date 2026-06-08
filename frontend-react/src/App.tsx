@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
-const [convId] = useState(() => crypto.randomUUID());
-
 type Message = {
   id: number;
   text: string;
@@ -20,6 +18,7 @@ type FlyingBubble = {
 };
 
 function App() {
+  const [convId] = useState(() => crypto.randomUUID());
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [flyingBubbles, setFlyingBubbles] = useState<FlyingBubble[]>([]);

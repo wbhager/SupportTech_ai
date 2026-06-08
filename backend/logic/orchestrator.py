@@ -2,7 +2,7 @@ import os
 import json
 from openai import OpenAI
 from dotenv import load_dotenv
-from backend.tools.memory import add_to_memory, get_trimmed_memory
+from backend.tools.memory import add_to_history, get_trimmed_history
 
 load_dotenv()
 
@@ -72,7 +72,7 @@ tools = [
 
 def orchestrate(user_input: str, conv_id: str):
 
-    history = get_trimmed_memory(conv_id, max_messages = 5)
+    history = get_trimmed_history(conv_id, max_messages = 5)
     clean_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
 
     response = client.chat.completions.create(

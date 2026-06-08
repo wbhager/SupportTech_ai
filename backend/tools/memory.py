@@ -17,4 +17,7 @@ def get_trimmed_history(conv_id: str, max_messages: int = 10) -> list:
 
 def delete_history(conv_id: str = None) -> None:
     """Delete history for a specific conversation, or all conversations if no conv_id given."""
-    del conv_history[conv_id] if conv_id else conv_history.clear()
+    if conv_id:
+        conv_history[conv_id]
+    else:
+        conv_history.clear()
