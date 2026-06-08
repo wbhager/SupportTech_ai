@@ -27,13 +27,12 @@ def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, syste
             augmented_message = f"Use this search result to answer:\n\n{tool_result}\n\nQuestion: {user_input}"
         elif tool_name == "parse_log":
             augmented_message = f"The following is log contents and additional context information to analyze as text only, and it is used in conjunction to help provide context:\n\n{tool_result}\n\nQuestion: {user_input}"
-        else:
-            augmented_message = user_input
+    else:
+        augmented_message = user_input
 
-    add_to_history(conv_id, role = "user", content = user_input)
-
-    history = get_trimmed_history(conv_id, max_messages = 10)
+    history = get_trimmed_history(conv_id, max_messages = 4)
     clean_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
+    clean_history = clean_history[:-1]
     
     messages = [
         {"role": "system", "content": system_prompt},
@@ -45,4 +44,6 @@ def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, syste
     inputs = tokenizer(text, return_tensors="pt").to(model.device)
     outputs = model.generate(**inputs, max_new_tokens = 512, do_sample = True, temperature = 0.7, top_p = 0.9)
 
-    return tokenizer.decode(outputs[0][inputs.input_ids.shape[-1]:], skip_special_tokens = True)
+    response = tokenizer.decode(outputs[0][inputs.input_ids.shape[-1]:], skip_special_tokens = True)
+    add_to_history(conv_id, role = "assistant", content = response)
+    return response

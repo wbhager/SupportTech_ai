@@ -100,6 +100,8 @@ Qwen would actually take the added context queries into account when answering t
 
 6/5: Read up further on memory construction and relevant documentation, created a few different iterations of an add_to_history, get_history, get_trimmed_history, and del_history, set up short-term-memory by adding in conversation_id and injected it inside the orchestrate function for gpt and the response function for qwen, set up conversation ids in react in a way that one generates when the page is refreshed and the component remounts
 
+6/8: Corrected the function calls that were not calling the functions by the exact names, updated delete-conversation logic to make sure I'm only deleting the conversation and not deleting a conditional statement, moved the conv_id tsx variable inside of the app because it is a hook that uses useState and must be inside a component,
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 

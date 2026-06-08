@@ -71,8 +71,8 @@ tools = [
 ]
 
 def orchestrate(user_input: str, conv_id: str):
-
-    history = get_trimmed_history(conv_id, max_messages = 5)
+    add_to_history(conv_id, role = "user", content = user_input)
+    history = get_trimmed_history(conv_id, max_messages = 3)
     clean_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
 
     response = client.chat.completions.create(

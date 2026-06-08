@@ -11,7 +11,7 @@ def get_history(conv_id: str) -> list:
     """Return the full message history for a given conversation."""
     return conv_history[conv_id]
 
-def get_trimmed_history(conv_id: str, max_messages: int = 10) -> list:
+def get_trimmed_history(conv_id: str, max_messages: int = 4) -> list:
     """Return only the last max_messages messages for a given conversation."""
     return get_history(conv_id)[-max_messages:]
 
