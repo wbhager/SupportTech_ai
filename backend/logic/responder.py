@@ -1,20 +1,9 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
 from pathlib import Path
 import os
+from ollama import Client
 from backend.tools.memory import add_to_history, get_trimmed_history
 
-model_name = "Qwen/Qwen2.5-1.5B-Instruct"
-hf_token = os.getenv("HF_TOKEN")
-
-tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token)
-
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    token = hf_token,
-    dtype="auto",
-    device_map="mps"
-)
+ollama_client = Client(host="http://localhost:11434")
 
 system_prompt = Path(__file__).parent.parent / "prompts" / "system_prompt.txt"
 system_prompt = system_prompt.read_text()
@@ -40,10 +29,16 @@ def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, syste
         {"role": "user", "content": augmented_message}
     ]
 
-    text = tokenizer.apply_chat_template(messages, tokenize = False, add_generation_prompt = True)
-    inputs = tokenizer(text, return_tensors="pt").to(model.device)
-    outputs = model.generate(**inputs, max_new_tokens = 512, do_sample = True, temperature = 0.7, top_p = 0.9)
+    response = ollama_client.chat(
+        model="qwen2.5:3b",
+        messages=messages,
+        options={
+            "num_predict": 256,
+            "temperature": 0.7,
+            "top_p": 0.9,
+        }
+    )
 
-    response = tokenizer.decode(outputs[0][inputs.input_ids.shape[-1]:], skip_special_tokens = True)
-    add_to_history(conv_id, role = "assistant", content = response)
-    return response
+    result = response.message.content
+    add_to_history(conv_id, "assistant", result)
+    return result
