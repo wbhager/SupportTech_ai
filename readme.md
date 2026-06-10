@@ -102,7 +102,9 @@ Qwen would actually take the added context queries into account when answering t
 
 6/8: Corrected the function calls that were not calling the functions by the exact names, updated delete-conversation logic to make sure I'm only deleting the conversation and not deleting a conditional statement, moved the conv_id tsx variable inside of the app because it is a hook that uses useState and must be inside a component, added assistant messages to history since I forgot to add them before, lowered the number of messages held in short term memory to 3-4 (3 for gpt, 4 for qwen) to take up less overall RAM, tested short-term memory with a few different examples and had success with them all other than qwen remembering a number I told it to remember, began the process of pivoting over from handling a qwen2.5:1.5b model with huggingface transformers to the Ollama application where I can quantize my model and efficiently run the 3b parameter model
 
-6/9: Freed up memory on computer, fixed a faulty Ollama installation by installing Ollama directly instead of by using homebrew, cleaned up zshell run commands and added /usr/local/bin permanently to the path to act as a shortcut map, tested functionality to see how much more the 3b parameter model could take compared to the 1.5b model,
+6/9: Freed up memory on computer, fixed a faulty Ollama installation by installing Ollama directly instead of by using homebrew, cleaned up zshell run commands and added /usr/local/bin permanently to the path to act as a shortcut map, tested functionality to see how much more the 3b parameter model could take compared to the 1.5b model
+
+6/10:
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
