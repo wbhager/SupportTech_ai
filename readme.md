@@ -104,7 +104,7 @@ Qwen would actually take the added context queries into account when answering t
 
 6/9: Freed up memory on computer, fixed a faulty Ollama installation by installing Ollama directly instead of by using homebrew, cleaned up zshell run commands and added /usr/local/bin permanently to the path to act as a shortcut map, tested functionality to see how much more the 3b parameter model could take compared to the 1.5b model
 
-6/10:
+6/10: Resolved some recurring path issues with the integrated terminal so that uv and ollama are always findable without export commands, read up on constructing RAG, decided that I would go with chromadb and a mini sentence-transformer embedding model to implement rag that would chunk my own code documents (research papers and other documentation later, most likely), decided upon postgresql as my long-term memory query language, began implementing rag by adding an additional ingest.py and embeddings folder and wrote some of the bare-bones code that will be needed to start making my rag system work
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
