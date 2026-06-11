@@ -12,4 +12,28 @@ files = [
 ]
 
 def chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> list[str]:
-    
+    chunks = []
+    start = 0
+    while start < len(text):
+        end = min(start + chunk_size, len(text))
+        chunks.append(text[start:end])
+        start += chunk_size - overlap
+    return chunks
+
+def ingest_file(filepath: str) -> None:
+    text = Path(filepath).read_text()
+    chunks = chunk_text(text)
+
+    for i, chunk in enumerate(chunks):
+        chunk_id = Path(filepath).name+ f"_{i}"
+        embedding = embedding_model.encode(chunk).tolist()
+        collection.add(
+            ids=[chunk_id],
+            embeddings=[embedding],
+            documents=[chunk],
+            metadatas=[{"source": filepath}]
+        )
+
+def ingest_all() -> None:
+    for filepath in files:
+        ingest_file(filepath)
