@@ -23,7 +23,7 @@ def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, relev
     clean_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
     clean_history = clean_history[:-1]
 
-    rag_context = "\n\n".join(relevant_chunks) if relevant_chunks else ""
+    rag_context = "\n\n".join(relevant_chunks)
     rag_message = f"""Here is some potentially relevant context from the codebase. 
         Use it only if it helps answer the question, ignore it otherwise:
 
@@ -36,6 +36,10 @@ def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, relev
         *clean_history,
         {"role": "user", "content": rag_message}
     ]
+
+    print(f"DEBUG RAG: retrieved {len(relevant_chunks)} chunks")
+    for i, chunk in enumerate(relevant_chunks):
+        print(f"DEBUG RAG chunk {i+1}: {chunk[:100]}...")
 
     response = ollama_client.chat(
         model="qwen2.5:3b",
