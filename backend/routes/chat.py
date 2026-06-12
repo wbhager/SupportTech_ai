@@ -15,7 +15,7 @@ class Message(BaseModel):
 
 @router.post("/chat")
 async def chat_endpoint(message: Message):
-    tool_name, tool_args = orchestrate(message.message, message.conv_id)
+    tool_name, tool_args, relevant_chunks = orchestrate(message.message, message.conv_id)
     
     print(f"DEBUG: tool_name={tool_name}, tool_args={tool_args}")
 
@@ -38,5 +38,5 @@ async def chat_endpoint(message: Message):
         parsed = parse_python_traceback(text)
         tool_result = f"{parsed}\n\nUser context: {query}" if query else str(parsed)
 
-    response = respond_to_user(message.message, message.conv_id, tool_name=tool_name, tool_result=tool_result)
+    response = respond_to_user(message.message, message.conv_id, tool_name=tool_name, tool_result=tool_result, relevant_chunks=relevant_chunks)
     return {"response": response, "searching": searching}

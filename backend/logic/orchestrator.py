@@ -3,6 +3,7 @@ import json
 from openai import OpenAI
 from dotenv import load_dotenv
 from backend.tools.memory import add_to_history, get_trimmed_history
+from backend.tools.rag import retrieve_relevant_chunks
 
 load_dotenv()
 
@@ -71,6 +72,8 @@ tools = [
 ]
 
 def orchestrate(user_input: str, conv_id: str):
+    relevant_chunks = retrieve_relevant_chunks(user_input)
+
     add_to_history(conv_id, role = "user", content = user_input)
     history = get_trimmed_history(conv_id, max_messages = 3)
     clean_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
@@ -87,9 +90,9 @@ def orchestrate(user_input: str, conv_id: str):
     if tool_choice.tool_calls:
         tool_name = tool_choice.tool_calls[0].function.name
         tool_args = tool_choice.tool_calls[0].function.arguments
-        return tool_name, tool_args
+        return tool_name, tool_args, relevant_chunks
     else:
-        return "No tool call", None
+        return "No tool call", None, relevant_chunks
 
     
 

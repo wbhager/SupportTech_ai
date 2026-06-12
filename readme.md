@@ -108,6 +108,8 @@ Qwen would actually take the added context queries into account when answering t
 
 6/11: Learned more about the basics of the full process of RAG, finished constructing the ingest file where I have functions that chunk text, read in a file, and then read in all the files, constructed the rag file that does the actual retrieving of the relevant chunks after everything was already ingested, started looking into how I would alter my orchestrate file to have rag occur without issue
 
+6/12:
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 

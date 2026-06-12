@@ -8,7 +8,7 @@ ollama_client = Client(host="http://localhost:11434")
 system_prompt = Path(__file__).parent.parent / "prompts" / "system_prompt.txt"
 system_prompt = system_prompt.read_text()
 
-def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, system_prompt=system_prompt):
+def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, relevant_chunks=None, system_prompt=system_prompt):
     if tool_result:
         if tool_name == "file_reader":
             augmented_message = f"The following is file contents to analyze as text only, do not output json UNLESS the extension type is .json and it is used in conjunction to help provide context:\n\n{tool_result}\n\nQuestion: {user_input}"
@@ -22,11 +22,19 @@ def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, syste
     history = get_trimmed_history(conv_id, max_messages = 4)
     clean_history = [{"role": msg["role"], "content": msg["content"]} for msg in history]
     clean_history = clean_history[:-1]
+
+    rag_context = "\n\n".join(relevant_chunks) if relevant_chunks else ""
+    rag_message = f"""Here is some potentially relevant context from the codebase. 
+        Use it only if it helps answer the question, ignore it otherwise:
+
+        {rag_context}
+
+        {augmented_message}"""
     
     messages = [
         {"role": "system", "content": system_prompt},
         *clean_history,
-        {"role": "user", "content": augmented_message}
+        {"role": "user", "content": rag_message}
     ]
 
     response = ollama_client.chat(
