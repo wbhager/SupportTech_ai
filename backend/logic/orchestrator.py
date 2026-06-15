@@ -1,5 +1,6 @@
 import os
 import json
+from pathlib import Path
 from openai import OpenAI
 from dotenv import load_dotenv
 from backend.tools.memory import add_to_history, get_trimmed_history
@@ -8,6 +9,9 @@ from backend.tools.rag import retrieve_relevant_chunks
 load_dotenv()
 
 client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+
+orchestrator_prompt = Path(__file__).parent.parent / "prompts" / "orchestrator_prompt.txt"
+orchestrator_prompt = orchestrator_prompt.read_text()
 
 tools = [
     {
@@ -80,7 +84,10 @@ def orchestrate(user_input: str, conv_id: str):
 
     response = client.chat.completions.create(
         model="gpt-4o",
-        messages=clean_history,
+        messages=
+            [{"role": "system", "content": orchestrator_prompt},
+            *clean_history
+        ],
         tools=tools,
         tool_choice="auto"
     )
