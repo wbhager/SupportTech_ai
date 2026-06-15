@@ -27,17 +27,19 @@ def chunk_text(text: str, chunk_size: int = 500, overlap: int = 100) -> list[str
 def ingest_file(filepath: str) -> None:
     print(f"Ingesting: {filepath}")
     text = Path(filepath).read_text()
+    filename = Path(filepath).name
     print(f"Text length: {len(text)}")
     chunks = chunk_text(text)
     print(f"Chunks created: {len(chunks)}")
 
     for i, chunk in enumerate(chunks):
-        chunk_id = Path(filepath).name + f"_{i}"
-        embedding = embedding_model.encode(chunk).tolist()
+        contextualized_chunk = f"File: {filename}\n\n{chunk}"
+        chunk_id = filename + f"_{i}"
+        embedding = embedding_model.encode(contextualized_chunk).tolist()
         collection.upsert(
             ids=[chunk_id],
             embeddings=[embedding],
-            documents=[chunk],
+            documents=[contextualized_chunk],
             metadatas=[{"source": filepath}]
         )
     print(f"Done ingesting {filepath}")

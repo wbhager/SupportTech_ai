@@ -5,7 +5,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent 
 EMBEDDINGS_PATH = str(BASE_DIR / "data" / "embeddings")
 
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+embedding_model = SentenceTransformer("all-mpnet-base-v2")
 chroma_client = chromadb.PersistentClient(path=EMBEDDINGS_PATH)
 collection = chroma_client.get_or_create_collection("supporttech_docs")
 
