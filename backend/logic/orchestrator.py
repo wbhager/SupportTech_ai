@@ -31,13 +31,13 @@ tools = [
         "type": "function",
         "function": {
             "name": "file_reader",
-            "description": "Read the contents of a file. The file can be in PDF, TXT, MD, PY, or JSON format.",
+            "description": "Read the contents of a file. Only use this tool when the user provides a full absolute file path starting with /Users/",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "file_path": {
                         "type": "string",
-                        "description": "The path to the file to be read.",
+                        "description": "The full absolute path to the file, must start with /Users/. Example: /Users/willhager/Documents/SupportTech_ai/frontend-react/src/App.tsx"
                     },
                     "query": {
                         "type": "string",
@@ -87,12 +87,12 @@ def orchestrate(user_input: str, conv_id: str):
 
     tool_choice = response.choices[0].message
 
-    # if tool_choice.tool_calls:
-    #     tool_name = tool_choice.tool_calls[0].function.name
-    #     tool_args = tool_choice.tool_calls[0].function.arguments
-    #     return tool_name, tool_args, relevant_chunks
-    # else:
-    return "No tool call", None, relevant_chunks
+    if tool_choice.tool_calls:
+        tool_name = tool_choice.tool_calls[0].function.name
+        tool_args = tool_choice.tool_calls[0].function.arguments
+        return tool_name, tool_args, relevant_chunks
+    else:
+        return "No tool call", None, relevant_chunks
 
     
 
