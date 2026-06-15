@@ -87,12 +87,12 @@ def orchestrate(user_input: str, conv_id: str):
 
     tool_choice = response.choices[0].message
 
-    if tool_choice.tool_calls:
-        tool_name = tool_choice.tool_calls[0].function.name
-        tool_args = tool_choice.tool_calls[0].function.arguments
-        return tool_name, tool_args, relevant_chunks
-    else:
-        return "No tool call", None, relevant_chunks
+    # if tool_choice.tool_calls:
+    #     tool_name = tool_choice.tool_calls[0].function.name
+    #     tool_args = tool_choice.tool_calls[0].function.arguments
+    #     return tool_name, tool_args, relevant_chunks
+    # else:
+    return "No tool call", None, relevant_chunks
 
     
 
