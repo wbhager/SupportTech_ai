@@ -11,11 +11,10 @@ Don't forget command D for being able to edit multiple words at once! (Command +
 To-do:
 
     Backend:
-        - Implement system info / log parser!
-        - Implement RAG (LangChain) (truncate or chunk large files first)!
-        - Implement memory!
+        - Implement long-term memory
         - Review LoRA/PEFT/Quantization in order for concepts to stick
         - Begin the fine-tuning evaluation flywheel!
+        - Perform edge-case testing everywhere to check for bugs
 
     Frontend:
         - Continue the TechWithTim React tutorial to get a different perspective on beginning in React
@@ -108,11 +107,11 @@ Qwen would actually take the added context queries into account when answering t
 
 6/11: Learned more about the basics of the full process of RAG, finished constructing the ingest file where I have functions that chunk text, read in a file, and then read in all the files, constructed the rag file that does the actual retrieving of the relevant chunks after everything was already ingested, started looking into how I would alter my orchestrate file to have rag occur without issue
 
-6/12:
+6/12: Added the retrieval function from rag.py to the orchestrator file, decided upon having rag trigger every single time due to simplicity of implementation and that I don't need to massively scale to the point where it'd be a problem, added chunks to the augmented message in orchestrator to add context, added debugging lines and tested to see why rag wasn't initially working (the files weren't pointing to the correct embedding path), added additional debugging statements to see which chunks were being output and some additional metadata about them (0 were being output, made the silly mistake of forgetting to ingest the files)
 
-6/15:
+6/15: Wrote code to upsert all of the rag files' chunks whenever I call for it, upgraded the embedding model from all-MiniLM to all-mpnet-base to bge-large for higher retrieval quality, added filename prepending so that qwen knows what chunks are associated with which file, increased top_k from 3-5 for a wider chunk retrieval net, added a distance similarity threshold to filter out irrelevant chunks and debugging lines to show me this information whenever I provide a query to my UI, added a GPT system prompt (renamed the old tool prompt to orchestrator_prompt and used that) to provide more speicifcations about how to identify which tool to use if any, fixed file_reader so that it only will run if the user specifies a full file path in their query, installed postgresql and psycopg2-binary to help with implementing long-term memory, ran a temporary instance of postgres on my computer successfully to test to see if it would connect
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 
-BACKEND MISSION: Finish and test rag, start long-term memory! Starting to get close to the end of the backend work!
+BACKEND MISSION: Continue on with long-term memory! Pretty close to the end of the backend work!
