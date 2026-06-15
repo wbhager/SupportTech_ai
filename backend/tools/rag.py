@@ -13,6 +13,15 @@ def retrieve_relevant_chunks(query: str, top_k: int = 5) -> list[str]:
     embedding = embedding_model.encode(query).tolist()
     results = collection.query(
         query_embeddings=[embedding],
-        n_results=top_k
+        n_results=top_k,
+        include=["documents", "distances"]
     )
-    return results["documents"][0]
+    
+    chunks = []
+    for doc, distance in zip(results["documents"][0], results["distances"][0]):
+        print(f"DEBUG RAG distance: {distance:.4f} | chunk preview: {doc[:80]}...")
+        if distance < 0.6:
+            chunks.append(doc)
+    
+    print(f"DEBUG RAG: {len(chunks)} chunks passed threshold")
+    return chunks
