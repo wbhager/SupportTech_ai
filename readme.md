@@ -113,6 +113,8 @@ Qwen would actually take the added context queries into account when answering t
 
 6/16: Initialized db.py to connect to postgres and exposes functions for manipulating data, established a connection pipeline and a server for the pipeline connecting the postgres database to python, defined save-conversation and save-message functions inside db.py, created a conversations, messages, and evaluation table to store long-term memory and evaluation data
 
+6/26:
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 

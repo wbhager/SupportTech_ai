@@ -15,8 +15,20 @@ def save_conversation(conv_id):
 
 def save_message(conv_id, role, content):
     cursor.execute(
+        "SELECT COUNT(*) FROM messages WHERE conv_id = %s",
+        (conv_id,)
+    )
+    message_count = cursor.fetchone()[0]
+
+    cursor.execute(
         "INSERT INTO messages (conv_id, role, content, message_order) VALUES (%s, %s, %s, %s)",
-        (conv_id, role, content, COUNT(message_id))
+        (conv_id, role, content, message_count + 1)
     )
     conn.commit()
+
+def get_conversation_history(conv_id):
+    cursor.execute(
+        "SELECT role, content FROM messages WHERE conv_id = %s ORDER BY message_order ASC",
+        (conv_id,)
+    )
 
