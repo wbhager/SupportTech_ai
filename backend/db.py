@@ -47,3 +47,10 @@ def save_evaluation(conv_id: str, message_id: int, score: int, feedback: str):
     )
     conn.commit()
 
+def save_title(conv_id: str, title: str):
+    cursor.execute(
+        "UPDATE conversations SET title = %s WHERE conv_id = %s",
+        (title, conv_id)
+    )
+    conn.commit()
+
