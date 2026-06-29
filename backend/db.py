@@ -1,11 +1,18 @@
 import psycopg2
 
-conn = psycopg2.connect(
-    dbname = "supporttech_ai",
-    user = "willhager",
-    host = "localhost",
-    port = 5432
-)
+try:
+    conn = psycopg2.connect(
+        dbname="supporttech_ai",
+        user="willhager",
+        host="localhost",
+        port=5432
+    )
+    cursor = conn.cursor()
+    print("Connected to supporttech_ai database")
+except Exception as e:
+    print(f"Database connection failed: {e}")
+    conn = None
+    cursor = None
 
 cursor = conn.cursor()
 
@@ -31,4 +38,12 @@ def get_conversation_history(conv_id):
         "SELECT role, content FROM messages WHERE conv_id = %s ORDER BY message_order ASC",
         (conv_id,)
     )
+    return cursor.fetchall()
+
+def save_evaluation(conv_id, message_id, score, feedback):
+    cursor.execute(
+        "INSERT INTO evaluations (conv_id, message_id, score, feedback) VALUES (%s, %s, %s, %s)",
+        (conv_id, message_id, score, feedback)
+    )
+    conn.commit()
 
