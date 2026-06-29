@@ -16,11 +16,11 @@ except Exception as e:
 
 cursor = conn.cursor()
 
-def save_conversation(conv_id):
+def save_conversation(conv_id: str):
     cursor.execute("INSERT INTO conversations (conv_id) VALUES (%s) ON CONFLICT (conv_id) DO NOTHING", (conv_id,))
     conn.commit()
 
-def save_message(conv_id, role, content):
+def save_message(conv_id: str, role: str, content: str):
     cursor.execute(
         "SELECT COUNT(*) FROM messages WHERE conv_id = %s",
         (conv_id,)
@@ -33,14 +33,14 @@ def save_message(conv_id, role, content):
     )
     conn.commit()
 
-def get_conversation_history(conv_id):
+def get_conversation_history(conv_id: str):
     cursor.execute(
         "SELECT role, content FROM messages WHERE conv_id = %s ORDER BY message_order ASC",
         (conv_id,)
     )
     return cursor.fetchall()
 
-def save_evaluation(conv_id, message_id, score, feedback):
+def save_evaluation(conv_id: str, message_id: int, score: int, feedback: str):
     cursor.execute(
         "INSERT INTO evaluations (conv_id, message_id, score, feedback) VALUES (%s, %s, %s, %s)",
         (conv_id, message_id, score, feedback)
