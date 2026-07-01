@@ -54,3 +54,6 @@ def save_title(conv_id: str, title: str):
     )
     conn.commit()
 
+def fetch_sidebar_conv_names():
+    cursor.execute("SELECT conv_id, title FROM conversations ORDER BY created_at DESC")
+    return cursor.fetchall()

@@ -5,6 +5,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from backend.tools.memory import add_to_history, get_trimmed_history
 from backend.tools.rag import retrieve_relevant_chunks
+from backend.db import save_title, save_conversation, get_conversation_history
 
 load_dotenv()
 
@@ -77,6 +78,17 @@ tools = [
 
 def orchestrate(user_input: str, conv_id: str):
     relevant_chunks = retrieve_relevant_chunks(user_input)
+
+    if not get_conversation_history(conv_id):
+        save_conversation(conv_id)
+        title_generation = client.chat.completions.create(
+            model = "gpt-4o",
+            messages = 
+            [{"role": "system", "content": "Generate a 5-10 word title for this conversation that is concise, descriptive, and unique. Do not include any special characters or punctuation."},
+             {"role": "user", "content": user_input}],
+        )
+        title = title_generation.choices[0].message.content.strip()
+        save_title(conv_id, title)
 
     add_to_history(conv_id, role = "user", content = user_input)
     history = get_trimmed_history(conv_id, max_messages = 3)
