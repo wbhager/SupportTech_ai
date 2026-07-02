@@ -27,6 +27,7 @@ function App() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
+  const inputRectRef = useRef<DOMRect | null>(null);
 
   useEffect(() => {
     document.documentElement.className = theme;
@@ -43,14 +44,30 @@ function App() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    const update = () => {
+      if (textareaRef.current) {
+        inputRectRef.current = textareaRef.current.getBoundingClientRect();
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const sendMessage = async () => {
     if (!message.trim() || isLoading) return;
+    
+    // Capture position first, before anything changes
+    if (textareaRef.current) {
+      inputRectRef.current = textareaRef.current.getBoundingClientRect();
+    }
+    const inputRect = inputRectRef.current;
+    
     const userText = message;
     setMessage("");
   
     // Capture rects synchronously before any state changes
-    const inputRect = textareaRef.current?.getBoundingClientRect();
     const feedRect = feedRef.current?.getBoundingClientRect();
   
     // Helper to build a flying bubble using pre-captured rects
@@ -64,13 +81,22 @@ function App() {
   
       // Placing bubble at correct position
       const endRect = messagesEndRef.current?.getBoundingClientRect();
-      const endY = endRect ? endRect.top : feedRect ? feedRect.bottom - 60 : window.innerHeight - 200;
-
-      const endX = endRect
-        ? role === "user"
-          ? Math.min(endRect.right - 60, window.innerWidth - 80)
-          : Math.max(endRect.left + 60, 80)
-        : role === "user" ? window.innerWidth - 80 : 80;
+      const endY = Math.min(
+        Math.max(endRect ? endRect.top : feedRect ? feedRect.bottom - 60 : window.innerHeight - 200, 50),
+        window.innerHeight - 50
+      );
+      
+      const endX = Math.min(
+        Math.max(
+          endRect
+            ? role === "user"
+              ? Math.min(endRect.right - 60, window.innerWidth - 80)
+              : Math.max(endRect.left + 60, 80)
+            : role === "user" ? window.innerWidth - 80 : 80,
+          50
+        ),
+        window.innerWidth - 50
+      );
   
       setFlyingBubbles((prev) => [...prev, { id, role, startX, startY, endX, endY }]);
   
@@ -213,7 +239,7 @@ function FlyingBubbleEl({ bubble }: { bubble: FlyingBubble }) {
       const p0 = pts[Math.max(i - 1, 0)];
       const p1 = pts[i];
       const p2 = pts[Math.min(i + 1, n)];
-      const p3 = pts[Math.min(i + 2, n)];
+      const p3 = pts[Math.min(i + 2, pts.length - 1)];
       const x =
         0.5 *
         ((2 * p1.x) +
@@ -302,7 +328,7 @@ function FlyingBubbleEl({ bubble }: { bubble: FlyingBubble }) {
 
     function animate(now: number) {
       const elapsed = now - start;
-      const raw = Math.min(elapsed / duration, 1);
+      const raw = Math.min(Math.max(elapsed / duration, 0), 1);
       const t = ease(raw);
 
       const pos = catmullRom(waypoints, t);
