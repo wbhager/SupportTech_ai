@@ -57,3 +57,7 @@ def save_title(conv_id: str, title: str):
 def fetch_sidebar_conv_names():
     cursor.execute("SELECT conv_id, title FROM conversations ORDER BY created_at DESC")
     return cursor.fetchall()
+
+def delete_conversation(conv_id: str):
+    cursor.execute("DELETE FROM conversations WHERE conv_id = %s", (conv_id,))
+    conn.commit()
