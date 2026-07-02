@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from backend.db import fetch_sidebar_conv_names, get_conversation_history
+from backend.tools.memory import delete_history
 
 router = APIRouter()
 
@@ -12,4 +13,9 @@ async def get_sidebar_title_names():
 async def get_conversation_messages(conv_id: str):
     conv_messages = get_conversation_history(conv_id)
     return {"messages": [{"role": role, "content": content} for role, content in conv_messages]}
+
+@router.delete("/conversations/{conv_id}")
+async def delete_conversation_endpoint(conv_id: str):
+    delete_history(conv_id)
+    return {"status": "deleted", "conv_id": conv_id}
 
