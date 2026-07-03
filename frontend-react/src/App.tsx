@@ -24,6 +24,8 @@ function App() {
   const [flyingBubbles, setFlyingBubbles] = useState<FlyingBubble[]>([]);
   const [theme, setTheme] = useState("theme-default");
   const [isLoading, setIsLoading] = useState(false);
+  const [conversations, setConversations] = useState<{conv_id: string, title: string}[]>([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
@@ -54,6 +56,19 @@ function App() {
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
+
+  useEffect(() => {
+    if (sidebarOpen) {
+      fetch("http://localhost:8000/conversations")
+        .then((res) => res.json())
+        .then((data) => {
+          setConversations(data.conversations);
+        })
+        .catch((err) => {
+          console.error("Error fetching conversations:", err);
+        });
+    }
+  }, [sidebarOpen]);
 
   const sendMessage = async () => {
     if (!message.trim() || isLoading) return;
