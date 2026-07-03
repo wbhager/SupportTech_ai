@@ -18,7 +18,7 @@ type FlyingBubble = {
 };
 
 function App() {
-  const [convId] = useState(() => crypto.randomUUID());
+  const [convId, setConvId] = useState<string>(() => crypto.randomUUID());
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [flyingBubbles, setFlyingBubbles] = useState<FlyingBubble[]>([]);
@@ -149,6 +149,26 @@ function App() {
     setConversations(prev => prev.filter(c => c.conv_id !== conv_id));
   };
 
+  const loadConversation = async (conv_id: string) => {
+    setConvId(conv_id);
+    const res = await fetch(`http://localhost:8000/conversations/${conv_id}/messages`);
+    const data = await res.json();
+    setMessages(
+      data.messages.map((msg: {role: string, content: string}, index: number) => ({
+        id: index,
+        text: msg.content,
+        role: msg.role,
+        popped: true,
+      }))
+    );
+  };
+
+  const newConversation = () => {
+    setConvId(crypto.randomUUID())
+    setMessages([])
+    setSidebarOpen(false)
+  }
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -213,29 +233,36 @@ function App() {
       </div>
     </div>
 
-  <div className="sidebar-container">
-    <button 
-      className={`sidebar-toggle ${sidebarOpen ? "sidebar-toggle-open" : ""}`}
-      onClick={() => setSidebarOpen(!sidebarOpen)}
-    >
-      {sidebarOpen ? "✕" : "💬"}
-  </button>
-
-    {sidebarOpen && (
-      <div className="sidebar-panel">
-        {conversations.map((conv, index) => (
-          <div 
-            key={conv.conv_id} 
-            className="sidebar-item"
-            style={{ animationDelay: `${0.05 + index * 0.1}s` }}
-          >
-            <span>{conv.title}</span>
-            <button onClick={() => deleteConversation(conv.conv_id)}>✕</button>
-          </div>
-        ))}
+    <div className="sidebar-container">
+      <div className="sidebar-buttons">
+        <button
+          className="sidebar-toggle"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          {sidebarOpen ? "✕" : "💬"}
+        </button>
+        <button
+          className={`new-conv-btn ${sidebarOpen ? "new-conv-btn-visible" : ""}`}
+          onClick={newConversation}
+        >
+          +
+        </button>
       </div>
-    )}
-  </div>
+      {sidebarOpen && (
+        <div className="sidebar-panel">
+          {conversations.map((conv, index) => (
+            <div
+              key={conv.conv_id}
+              className="sidebar-item"
+              style={{ animationDelay: `${0.05 + index * 0.1}s` }}
+            >
+              <span onClick={() => loadConversation(conv.conv_id)}>{conv.title}</span>
+              <button onClick={() => deleteConversation(conv.conv_id)}>✕</button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   </>
   );
 }

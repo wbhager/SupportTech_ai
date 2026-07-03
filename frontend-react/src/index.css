@@ -130,6 +130,33 @@ body {
   gap: 8px;
 }
 
+.new-conv-btn {
+  background: var(--secondary, #a855f7);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  margin-top: 8px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.new-conv-btn-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .page-top {
   display: flex;
   justify-content: flex-end;
