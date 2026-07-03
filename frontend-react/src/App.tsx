@@ -142,6 +142,13 @@ function App() {
     }
   };
 
+  const deleteConversation = async (conv_id: string) => {
+    await fetch(`http://localhost:8000/conversations/${conv_id}`, {
+      method: "DELETE",
+    });
+    setConversations(prev => prev.filter(c => c.conv_id !== conv_id));
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -150,6 +157,7 @@ function App() {
   };
 
   return (
+    <>
     <div className="page">
       {/* flying bubbles overlay */}
       {flyingBubbles.map((b) => (
@@ -204,6 +212,31 @@ function App() {
         </button>
       </div>
     </div>
+
+  <div className="sidebar-container">
+    <button 
+      className={`sidebar-toggle ${sidebarOpen ? "sidebar-toggle-open" : ""}`}
+      onClick={() => setSidebarOpen(!sidebarOpen)}
+    >
+      {sidebarOpen ? "✕" : "💬"}
+  </button>
+
+    {sidebarOpen && (
+      <div className="sidebar-panel">
+        {conversations.map((conv, index) => (
+          <div 
+            key={conv.conv_id} 
+            className="sidebar-item"
+            style={{ animationDelay: `${0.05 + index * 0.1}s` }}
+          >
+            <span>{conv.title}</span>
+            <button onClick={() => deleteConversation(conv.conv_id)}>✕</button>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+  </>
   );
 }
 
