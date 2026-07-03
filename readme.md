@@ -113,9 +113,13 @@ Qwen would actually take the added context queries into account when answering t
 
 6/16: Initialized db.py to connect to postgres and exposes functions for manipulating data, established a connection pipeline and a server for the pipeline connecting the postgres database to python, defined save-conversation and save-message functions inside db.py, created a conversations, messages, and evaluation table to store long-term memory and evaluation data
 
-6/29: Finished get_conversation_history and save_evaluation functions, added error handling to the psql connection,
+6/29: Finished get_conversation_history and save_evaluation functions, added error handling to the postgresql connection, adjusted columns/constraints/keys within the psql tables, updated memory file by calling the db functions into the memory file so that memory and db storage can be updated together, created conversation title generation logic
 
-7/1:
+7/1: Finished setting up title generation logic by adding it to the beginning of the logic in the orchestrator function, fixed library import logic to maintain consistency across files, initialized conversations endpoint file
+
+7/2: Fixed the inconsistent bubble animation due to correcting a bug that involved the bubbles starting to move at a negative time, added to the conversations endpoint file the three different endpoints that can get conversation title names, get the messages from within a conversation, and delete a message from both in memory and in the postgresql database, linked the psql storage to my UI by adding the conversations endpoint file router to my app in api_server so now my messages/conversations are now written/saved to a database, added/updated delete logic to the db and memory files, updated psql constraints so that a deleted conversation has a clean cascade that deletes every child associated with it
+
+7/3: Added button that displays all of the titles of conversations had, tested with different ways that conversations could be listed and the buttons to move when they were clicked on, added a new-chat button to start a new chat if needed, tested to ensure that it was possible to append to previous conversations
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, fix the bubbles so that it works for the user side! Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
