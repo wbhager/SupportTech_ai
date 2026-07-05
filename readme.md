@@ -121,7 +121,7 @@ Qwen would actually take the added context queries into account when answering t
 
 7/3: Added button that displays all of the titles of conversations had, tested with different ways that conversations could be listed and the buttons to move when they were clicked on, added a new-chat button to start a new chat if needed, tested to ensure that it was possible to append to previous conversations
 
-7/5:
+7/5: Decided on the structure for my fine-tuning/evaluation flywheel and that the evaluation would happen asynchronously, wrote the first version of the evaluation prompt that states the context for what Claude Sonnet (the evaluation model) will use to come up with a score, provides the json structure for the response the model will provide (a score field and a feedback field), and explains how the score will be computed, started writing the evaluator.py file that will call claude and generate an evaluation response
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
