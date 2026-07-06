@@ -11,6 +11,7 @@ dependencies = [
     "datasets>=4.8.4",
     "fastapi>=0.135.3",
     "httpx>=0.28.1",
+    "load-dotenv>=0.1.0",
     "ollama>=0.6.2",
     "onnxruntime==1.19.2",
     "openai>=2.30.0",

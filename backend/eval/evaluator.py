@@ -1,27 +1,16 @@
-# backend/eval/evaluator.py
-
 import anthropic
+from dotenv import load_dotenv
 import json
 import os
+from pathlib import Path
 
-# TODO: load the evaluator system prompt from backend/prompts/evaluator_prompt.txt
-# (reuse whatever pattern orchestrator.py / responder.py already use for this)
+load_dotenv()
 
-
-client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
-
-orchestrator_prompt = Path(__file__).parent.parent / "prompts" / "orchestrator_prompt.txt"
-orchestrator_prompt = orchestrator_prompt.read_text()
-
-
-
-EVALUATOR_PROMPT = ...
-
-client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-
+client = Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
+EVALUATOR_PROMPT = Path("backend/prompt/eval_prompt.txt").read_text()
 
 async def evaluate_response(
-    user_question: str,
+    user_query: str,
     qwen_response: str,
     tool_used: str | None,
     rag_used: bool,
@@ -42,16 +31,10 @@ async def evaluate_response(
     # actual "Response to evaluate:" section)
     user_content = ...
 
-    # TODO 2: make the API call
-    # - model: which Claude model string? (check product-self-knowledge 
-    #   for current valid model strings)
-    # - system: EVALUATOR_PROMPT
-    # - messages: [{"role": "user", "content": user_content}]
-    # - max_tokens: this response is tiny (JSON + a sentence) — keep it small
     response = client.messages.create(
-        model=...,
+        model="claude-sonnet-4-5-20250929",
         system=EVALUATOR_PROMPT,
-        max_tokens=...,
+        max_tokens=500,
         messages=[
             {"role": "user", "content": user_content}
         ],

@@ -123,6 +123,8 @@ Qwen would actually take the added context queries into account when answering t
 
 7/5: Decided on the structure for my fine-tuning/evaluation flywheel and that the evaluation would happen asynchronously, wrote the first version of the evaluation prompt that states the context for what Claude Sonnet (the evaluation model) will use to come up with a score, provides the json structure for the response the model will provide (a score field and a feedback field), and explains how the score will be computed, started writing the evaluator.py file that will call claude and generate an evaluation response
 
+7/6:
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 
