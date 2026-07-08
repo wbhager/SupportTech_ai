@@ -23,33 +23,31 @@ async def evaluate_response(
     Returns: {"score": int, "feedback": str}
     Raises: on malformed Claude output (caller decides retry/skip policy)
     """
+    try:
+        user_content = 
+            f"""
+            User's question: {user_query}
+            Tool used: {tool_used if tool_used else "None"}
+            RAG used: {"Yes" if rag_used else "No"}
+            Response to evaluate: {qwen_response}
+            """
 
-    user_content = 
-    f"""
-    User's question: {user_query}
-    Tool used: {tool_used if tool_used else "None"}
-    RAG used: {"Yes" if rag_used else "No"}
-    Response to evaluate: {qwen_response}
-    """
+        response = client.messages.create(
+            model="claude-sonnet-4-5-20250929",
+            system=EVALUATOR_PROMPT,
+            max_tokens=500,
+            messages=[
+                {"role": "user", "content": user_content}
+            ],
+        )
 
-    response = client.messages.create(
-        model="claude-sonnet-4-5-20250929",
-        system=EVALUATOR_PROMPT,
-        max_tokens=500,
-        messages=[
-            {"role": "user", "content": user_content}
-        ],
-    )
+        raw_output = response.content[0].text.strip()
+        result = parse_evaluation(raw_output)
+        return result
 
-    # TODO 3: extract the text from the response
-    # (response.content is a list of blocks — you want the text block)
-    raw_output = ...
-
-    # TODO 4: parse + validate (you already sketched this earlier —
-    # json.loads, check score is int 1-5, check "feedback" key exists)
-    result = parse_evaluation(raw_output)
-
-    return result
+    except Exception as e:
+        print(f"Error during evaluation: {e}")
+        return None
 
 
 def parse_evaluation(claude_output: str) -> dict:
@@ -60,6 +58,5 @@ def parse_evaluation(claude_output: str) -> dict:
             raise ValueError(f"score out of range: {score}")
         return {"score": score, "feedback": result["feedback"]}
     except (json.JSONDecodeError, KeyError, ValueError) as e:
-        # TODO 5: decide policy here — re-raise for caller to handle,
-        # log and return a sentinel value, or retry once inline?
-        raise
+        print(f"Error parsing evaluation output: {e}. Output was: {claude_output}")
+        return None
