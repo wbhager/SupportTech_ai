@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
+import asyncio
 from backend.logic.orchestrator import orchestrate
 from backend.logic.responder import respond_to_user
 from backend.tools.web_search import web_search
@@ -39,4 +40,14 @@ async def chat_endpoint(message: Message):
         tool_result = f"{parsed}\n\nUser context: {query}" if query else str(parsed)
 
     response = respond_to_user(message.message, message.conv_id, tool_name=tool_name, tool_result=tool_result, relevant_chunks=relevant_chunks)
+
+    asyncio.create_task(
+        evaluate_response(
+            user_question = message.message,
+            qwen_response = response,
+            tool_used = tool_name,
+            rag_used = bool(relevant_chunks)
+        )
+    )
+
     return {"response": response, "searching": searching}

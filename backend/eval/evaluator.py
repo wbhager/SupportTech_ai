@@ -24,12 +24,13 @@ async def evaluate_response(
     Raises: on malformed Claude output (caller decides retry/skip policy)
     """
 
-    # TODO 1: build the user-turn content.
-    # Needs to clearly present: the question, Qwen's response, and the
-    # tool_used/rag_used context (label it clearly so Claude doesn't confuse
-    # it with the response itself — e.g. a short "Context:" section vs the
-    # actual "Response to evaluate:" section)
-    user_content = ...
+    user_content = 
+    f"""
+    User's question: {user_query}
+    Tool used: {tool_used if tool_used else "None"}
+    RAG used: {"Yes" if rag_used else "No"}
+    Response to evaluate: {qwen_response}
+    """
 
     response = client.messages.create(
         model="claude-sonnet-4-5-20250929",
