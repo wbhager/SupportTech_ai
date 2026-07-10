@@ -4,11 +4,12 @@ from backend.db import save_conversation, save_message, get_conversation_history
 
 conv_history = defaultdict(list)
 
-def add_to_history(conv_id: str, role: str, content: str) -> None:
+def add_to_history(conv_id: str, role: str, content: str) -> int:
     """Add a single message to a conversation's history."""
     conv_history[conv_id].append({"role": role, "content": content})
     save_conversation(conv_id)
     save_message(conv_id, role, content)
+    return message_id
 
 def get_history(conv_id: str) -> list:
     """Return the full message history for a given conversation."""

@@ -125,6 +125,8 @@ Qwen would actually take the added context queries into account when answering t
 
 7/8: Put asyncio logic inside of chat.py where the evaluator function runs asynchronously while the main event loop happens when triggered by a user query, began constructing evaluator function, set up the user content containing info on the query, qwen's response, and whether or not a tool/rag was used, return the parsed output that will get logged into the evaluations table in psql, implemented error handling within the evaluation (malformed claude output) and outside the evaluation (parsing, network timeout, etc. error)
 
+7/10:
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 

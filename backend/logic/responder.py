@@ -52,5 +52,5 @@ def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, relev
     )
 
     result = response.message.content
-    add_to_history(conv_id, "assistant", result)
-    return result
+    message_id = add_to_history(conv_id, "assistant", result)
+    return result, message_id

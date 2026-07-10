@@ -28,10 +28,12 @@ def save_message(conv_id: str, role: str, content: str):
     message_count = cursor.fetchone()[0]
 
     cursor.execute(
-        "INSERT INTO messages (conv_id, role, content, message_order) VALUES (%s, %s, %s, %s)",
+        "INSERT INTO messages (conv_id, role, content, message_order) VALUES (%s, %s, %s, %s) RETURNING message_id",
         (conv_id, role, content, message_count + 1)
     )
+    message_id = cursor.fetchone()[0]
     conn.commit()
+    return message_id
 
 def get_conversation_history(conv_id: str):
     cursor.execute(

@@ -39,10 +39,12 @@ async def chat_endpoint(message: Message):
         parsed = parse_python_traceback(text)
         tool_result = f"{parsed}\n\nUser context: {query}" if query else str(parsed)
 
-    response = respond_to_user(message.message, message.conv_id, tool_name=tool_name, tool_result=tool_result, relevant_chunks=relevant_chunks)
+    response, assistant_message_id = respond_to_user(message.message, message.conv_id, tool_name=tool_name, tool_result=tool_result, relevant_chunks=relevant_chunks)
 
     asyncio.create_task(
-        evaluate_response(
+        run_evaluation_and_log(
+            conv_id = message.conv_id,
+            message_id = assistant_message_id,
             user_question = message.message,
             qwen_response = response,
             tool_used = tool_name,
