@@ -42,10 +42,10 @@ def get_conversation_history(conv_id: str):
     )
     return cursor.fetchall()
 
-def save_evaluation(conv_id: str, message_id: int, score: int, feedback: str):
+def save_evaluation(conv_id: str, message_id: int, score: int, feedback: str, user_message: str, qwen_response: str):
     cursor.execute(
-        "INSERT INTO evaluations (conv_id, message_id, score, feedback) VALUES (%s, %s, %s, %s)",
-        (conv_id, message_id, score, feedback)
+        "INSERT INTO evaluations (conv_id, message_id, score, feedback) VALUES (%s, %s, %s, %s, %s, %s)",
+        (conv_id, message_id, score, feedback, user_message, qwen_response)
     )
     conn.commit()
 

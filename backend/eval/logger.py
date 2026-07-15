@@ -28,5 +28,7 @@ async def run_evaluation_and_log(
         conv_id = conv_id,
         message_id = message_id,
         score = evaluation_result["score"],
-        feedback = evaluation_result["feedback"]
+        feedback = evaluation_result["feedback"],
+        user_question = user_question,
+        qwen_response = qwen_response
     )

@@ -127,7 +127,7 @@ Qwen would actually take the added context queries into account when answering t
 
 7/10: Designed AI evaluation system where the scoring system (1-5) would be determined from only the Qwen response (nothing to do with RAG or tool responses) and run asynchronously immediately after the qwen response is returned, wrote and refined the AI-feedback fine-tuning system prompt, update evaluation function to include both evaluating a qwen response and logging the response inside the evaluations postgres table, corrected more faulty import styles across my codebase
 
-7/14:
+7/14: Initialized and finished first version of the dataset_builder.py file that will construct a high-scores-only dataset of a jsonl structure with each line having only an instruction and a response for qwen to fine-tune on, denormalized evaluation table by including columns user message and the qwen response so that there wouldn't need to be extra joining and unnecessary complexity, updated the save_evaluation function in logger and db to pass the user message and qwen response to the postgres table
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
