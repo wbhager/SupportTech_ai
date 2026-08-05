@@ -4,7 +4,7 @@ I want to create my own AI agent that provides me with only the very best techni
 
 When my project is finished, I want to make it so that I can run it whenever I want on my own computer, and I will have a video demonstration of how my agent works on GitHub because it costs money monthly renting computer power remotely for other people to use my agent.
 
-Don't forget command D for being able to edit multiple words at once! (Command + Shift + L for all instances)
+Note-to-self: Don't forget command D for being able to edit multiple words at once! (Command + Shift + L for all instances)
 
 <br> <br> <br>
 
