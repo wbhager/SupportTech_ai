@@ -1,6 +1,6 @@
 Hello! Welcome to my second full-length self-project. This one is called SupportTech.ai!
 
-This is my own AI agent that provides me with only the very best technical knowledge whenever I have questions. I have a fully-functioning UI with a well-designed website that has a capable short term and long term memory(courtesy of postgresql). I utilize open-source model from huggingface that I can run and fine-tune on my Mac with its limited compute. I have implemented tools such as Tavily web search, a file reader, and RAG (ChromaDB). I use GPT 5.1 as my orchestrator model that determines what tool / process will be implemented.
+This is my own full-stack AI agent that provides me with only the very best technical knowledge whenever I have questions. I have a fully-functioning UI with a well-designed website that has a capable short term and long term memory(courtesy of postgresql). I utilize open-source model from huggingface that I can run and fine-tune on my Mac with its limited compute. I have implemented tools such as Tavily web search, a file reader, and RAG (ChromaDB). I use GPT 5.1 as my orchestrator model that determines what tool / process will be implemented.
 
 I am in the middle of configuring Claude Sonnet 4-5 to be my evaluation model to check my outputs, and I will create a flywheel where the agent will be fine-tuned on the best of the evaluated responses. After I finalize my fine-tuning loop, I plan to adjust some of the underlying PyTorch to so that I can make fine-grained decisions and potentially create a routing classifier.
 
