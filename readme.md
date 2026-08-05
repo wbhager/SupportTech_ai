@@ -1,9 +1,12 @@
 Hello! Welcome to my second full-length self-project. This one is called SupportTech.ai!
 
-I want to create my own AI agent that provides me with only the very best technical knowledge whenever I have questions. I plan to have a fully-functioning UI with a well-designed website that can remember previous questions you had. I want to be involved with every step of the AI life cycle apart from pre-training, which does not make as much sense to implement for this project. I will utilize a small, open-source model from huggingface that I can run and fine-tune on my computer with its current compute. I will incorporate tools such as web search, file reader, and RAG (LangChain). I will use GPT 5.1 as my orchestrator that will determine what tool / process will be implemented, and Claude Sonnet 4-5 as my evaluation agent to check my outputs, and I will create a flywheel where the agent will be fine-tuned on these evaluated responses. PyTorch is the engine underneath the fine-tuning, and after I create my fine-tuning loop, I plan to adjust some PyTorch to make some very fine-grained decisions and potentially create a routing classifier with some PyTorch after that.
+This is my own AI agent that provides me with only the very best technical knowledge whenever I have questions. I have a fully-functioning UI with a well-designed website that has a capable short term and long term memory(courtesy of postgresql). I utilize open-source model from huggingface that I can run and fine-tune on my Mac with its limited compute. I have implemented tools such as Tavily web search, a file reader, and RAG (ChromaDB). I use GPT 5.1 as my orchestrator model that determines what tool / process will be implemented.
 
-When my project is finished, I want to make it so that I can run it whenever I want on my own computer, and I will have a video demonstration of how my agent works on GitHub because it costs money monthly renting computer power remotely for other people to use my agent.
+I am in the middle of configuring Claude Sonnet 4-5 to be my evaluation model to check my outputs, and I will create a flywheel where the agent will be fine-tuned on the best of the evaluated responses. After I finalize my fine-tuning loop, I plan to adjust some of the underlying PyTorch to so that I can make fine-grained decisions and potentially create a routing classifier.
 
+The primary reason I made this was because I wanted to be involved in as many parts of the AI training life-cycle as I possibly could. Aside from pre-training and some advanced fine-tuning techniques, I have accomplished this mission.
+
+Note-to-self: Create video demonstration to put on GitHub once finished!
 Note-to-self: Don't forget command D for being able to edit multiple words at once! (Command + Shift + L for all instances)
 
 <br> <br> <br>
@@ -11,16 +14,13 @@ Note-to-self: Don't forget command D for being able to edit multiple words at on
 To-do:
 
     Backend:
-        - Implement long-term memory
-        - Review LoRA/PEFT/Quantization in order for concepts to stick
-        - Begin the fine-tuning evaluation flywheel!
+        - Continue the fine-tuning evaluation flywheel!
         - Perform edge-case testing everywhere to check for bugs
+        - Review LoRA/PEFT/Quantization in order for concepts to stick
+
 
     Frontend:
-        - Continue the TechWithTim React tutorial to get a different perspective on beginning in React
-        - Fix the occaionally-spawning bubbles situation and make them always spawn
-        - Brainstorm ideas for what I want my interface to look like
-        - Start implementing the early ideas for my interface design, I can always add to it/change it later
+        - Brainstorm additional ideas for what I could later include on my site
         - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
         - Continue developing color themes as the site gets more populated and there are more things to color in
 
@@ -128,6 +128,8 @@ Qwen would actually take the added context queries into account when answering t
 7/10: Designed AI evaluation system where the scoring system (1-5) would be determined from only the Qwen response (nothing to do with RAG or tool responses) and run asynchronously immediately after the qwen response is returned, wrote and refined the AI-feedback fine-tuning system prompt, update evaluation function to include both evaluating a qwen response and logging the response inside the evaluations postgres table, corrected more faulty import styles across my codebase
 
 7/14: Initialized and finished first version of the dataset_builder.py file that will construct a high-scores-only dataset of a jsonl structure with each line having only an instruction and a response for qwen to fine-tune on, denormalized evaluation table by including columns user message and the qwen response so that there wouldn't need to be extra joining and unnecessary complexity, updated the save_evaluation function in logger and db to pass the user message and qwen response to the postgres table
+
+8/5: Publicized project, updated project description to be more up-to-date, adjusted some to-do list items
 
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
