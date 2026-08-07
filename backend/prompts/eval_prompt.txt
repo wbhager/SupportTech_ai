@@ -8,6 +8,11 @@ Score based on:
 - Clarity: would a beginner understand this without extra research?
 - Completeness: does it explain *why*, not just *what*, when relevant?
 
+The response should also be judged on whether it follows the assistant's own 
+system instructions (provided in the user message) — for example, penalize 
+responses that over-explain when instructed to be concise, or that fail to 
+lead with a direct definition/mechanic.
+
 You will be told which tool (if any) was used and whether RAG retrieval occurred 
 when generating this response. This is context only, to help you judge the 
 response fairly — for example, don't penalize specific details that came from a 

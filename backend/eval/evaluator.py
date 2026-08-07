@@ -1,4 +1,4 @@
-import anthropic
+from anthropic import Anthropic
 from dotenv import load_dotenv
 import json
 import os
@@ -7,10 +7,11 @@ from pathlib import Path
 load_dotenv()
 
 client = Anthropic(api_key=os.getenv("CLAUDE_API_KEY"))
-EVALUATOR_PROMPT = Path("backend/prompt/eval_prompt.txt").read_text()
+EVALUATOR_PROMPT = Path("backend/prompts/eval_prompt.txt").read_text()
+QWEN_SYSTEM_PROMPT = Path("backend/prompts/system_prompt.txt").read_text()
 
 async def evaluate_response(
-    user_query: str,
+    user_message: str,
     qwen_response: str,
     tool_used: str | None,
     rag_used: bool,
@@ -24,9 +25,10 @@ async def evaluate_response(
     Raises: on malformed Claude output (caller decides retry/skip policy)
     """
     try:
-        user_content = 
-            f"""
-            User's question: {user_query}
+        user_content = f"""The assistant being evaluated follows these instructions:
+            {QWEN_SYSTEM_PROMPT}
+
+            User's question: {user_message}
             Tool used: {tool_used if tool_used else "None"}
             RAG used: {"Yes" if rag_used else "No"}
             Response to evaluate: {qwen_response}
@@ -52,7 +54,13 @@ async def evaluate_response(
 
 def parse_evaluation(claude_output: str) -> dict:
     try:
-        result = json.loads(claude_output)
+        cleaned = claude_output.strip()
+        if cleaned.startswith("```"):
+            cleaned = cleaned.split("\n", 1)[1]
+            cleaned = cleaned.rsplit("```", 1)[0]
+            cleaned = cleaned.strip()
+
+        result = json.loads(cleaned)
         score = int(result["score"])
         if not 1 <= score <= 5:
             raise ValueError(f"score out of range: {score}")

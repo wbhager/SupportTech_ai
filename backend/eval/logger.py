@@ -14,7 +14,7 @@ async def run_evaluation_and_log(
     Evaluates a Qwen response and logs the result to the database.
     """
     evaluation_result = await evaluate_response(
-        user_query=user_message,
+        user_message=user_message,
         qwen_response=qwen_response,
         tool_used=tool_used,
         rag_used=rag_used
@@ -29,6 +29,6 @@ async def run_evaluation_and_log(
         message_id = message_id,
         score = evaluation_result["score"],
         feedback = evaluation_result["feedback"],
-        user_question = user_question,
+        user_message = user_message,
         qwen_response = qwen_response
     )

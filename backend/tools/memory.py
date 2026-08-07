@@ -8,7 +8,7 @@ def add_to_history(conv_id: str, role: str, content: str) -> int:
     """Add a single message to a conversation's history."""
     conv_history[conv_id].append({"role": role, "content": content})
     save_conversation(conv_id)
-    save_message(conv_id, role, content)
+    message_id = save_message(conv_id, role, content)
     return message_id
 
 def get_history(conv_id: str) -> list:

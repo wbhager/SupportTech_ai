@@ -6,6 +6,7 @@ from backend.logic.responder import respond_to_user
 from backend.tools.web_search import web_search
 from backend.tools.file_reader import file_reader
 from backend.tools.log_parser import parse_python_traceback
+from backend.eval.logger import run_evaluation_and_log
 import json
 
 router = APIRouter()
@@ -45,7 +46,7 @@ async def chat_endpoint(message: Message):
         run_evaluation_and_log(
             conv_id = message.conv_id,
             message_id = assistant_message_id,
-            user_question = message.message,
+            user_message = message.message,
             qwen_response = response,
             tool_used = tool_name,
             rag_used = bool(relevant_chunks)
