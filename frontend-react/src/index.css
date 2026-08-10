@@ -27,6 +27,8 @@ body {
   flex-direction: column;
   height: 100vh;
   justify-content: space-between;
+  position: relative;
+  z-index: 1;
 }
 
 .sidebar-container {
@@ -269,6 +271,38 @@ html, body { cursor: none; }
   );
 }
 
+.grayscale-layer {
+  filter: grayscale(100%) brightness(0.85);
+}
+
+.grayscale-layer, .color-spot-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('/color_bckgrnd.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.color-spot-layer {
+  opacity: 1;
+  filter: saturate(1.15) brightness(1.05);
+  mix-blend-mode: normal;
+  -webkit-mask-image: radial-gradient(
+    180px circle at var(--x) var(--y),
+    black 0%,
+    rgba(0,0,0,0.5) 50%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    300px circle at var(--x) var(--y),
+    black 0%,
+    rgba(0,0,0,0.5) 50%,
+    transparent 100%
+  );
+}
+
 .cursor {
   position: fixed;
   left: var(--x);
@@ -478,9 +512,6 @@ button, textarea, input {
   opacity: 0.45;
   cursor: not-allowed;
 }
-
-/* ── feed ── */
-/* ── feed ── */
 .messages-feed {
   flex: 1;
   overflow-y: auto;
@@ -497,7 +528,7 @@ button, textarea, input {
 .bubble-row.assistant { justify-content: flex-start; }
 
 .bubble-outer {
-  max-width: 72%
+  max-width: 72%;
 }
 
 /* pre-pop: invisible placeholder so layout doesn't jump */
@@ -523,12 +554,13 @@ button, textarea, input {
 
 .bubble-row.user .bubble-text {
   background: var(--primary);
+  opacity: 0.9;
   color: var(--text);
   border-bottom-right-radius: 4px;
 }
 
 .bubble-row.assistant .bubble-text {
-  background: rgba(128, 128, 128, 0.18);
+  background: rgba(128, 128, 128, 0.80);
   color: var(--text);
   border-bottom-left-radius: 4px;
 }

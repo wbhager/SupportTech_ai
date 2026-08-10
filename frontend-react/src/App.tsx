@@ -31,6 +31,7 @@ function App() {
   const feedRef = useRef<HTMLDivElement>(null);
   const inputRectRef = useRef<DOMRect | null>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
+  const [bgMode, setBgMode] = useState<"reveal" | "colorSpot">("reveal");
 
   useEffect(() => {
     document.documentElement.className = theme;
@@ -196,7 +197,13 @@ function App() {
 
   return (
     <>
-    <div className="hidden-reveal-layer" />
+    {bgMode === "reveal" && <div className="hidden-reveal-layer" />}
+    {bgMode === "colorSpot" && (
+      <>
+        <div className="grayscale-layer" />
+        <div className="color-spot-layer" />
+      </>
+    )}    
     <div className="glow" />
     <div ref={cursorRef} className="cursor" />
     <div className="page">
@@ -206,6 +213,13 @@ function App() {
       ))}
 
       <div className="page-top">
+        <button
+        onClick={() => setBgMode(bgMode === "reveal" ? "colorSpot" : "reveal")}
+        onMouseEnter={() => setCursorMode("button")}
+        onMouseLeave={() => setCursorMode(null)}
+        >
+        {bgMode === "reveal" ? "Switch to Color Spotlight" : "Switch to Hidden Reveal"}
+        </button>
         <div className="theme-switcher">
           <span className="theme-label"> Apply New Color Theme </span>
           <div className="theme-options">
