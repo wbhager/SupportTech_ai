@@ -14,15 +14,18 @@ Note-to-self: Don't forget command D for being able to edit multiple words at on
 To-do:
 
     Backend:
-        - Continue the fine-tuning evaluation flywheel!
+        - Adjust evaluation and model system prompts so that the model produces what I want it to and the evaluation prompt evaluates the model accurately
+        - Set up learning portion of flywheel where the Qwen learns from the top response
+        - Begin PyTorch code manipulation
         - Perform edge-case testing everywhere to check for bugs
         - Review LoRA/PEFT/Quantization in order for concepts to stick
 
 
     Frontend:
-        - Brainstorm additional ideas for what I could later include on my site
+        - Make initial front page design "pop" a little bit more
         - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
         - Continue developing color themes as the site gets more populated and there are more things to color in
+        - De-clutter the app.tsx file by moving components like bubbles into separate fles, app.tsx should only run components instead of define them
 
 <br> <br> <br>
 
@@ -135,7 +138,6 @@ Qwen would actually take the added context queries into account when answering t
 
 8/10: Implemented glowing cursor that expands when held over buttons and becomes a type cursor when held over a text box, implemented a hidden-background effect where holding the cursor in front of part of the background illuminates it so you can see just a part of the background,
 
-FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
-previous agent. Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
+FRONTEND MISSION: Make it more stylish! The hidden background image is cool, but I want to be able to make the normal background pop a little bit more.
 
 BACKEND MISSION: Figure out if you're keeping step 0 in the system_prompt file. The additional statement is occasionally being added, but seemingly at the cost of markdown. I'd like to include both, but if all else fails, the basics including markdown works in the previous commit that I have where I only include steps 1-6
