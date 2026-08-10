@@ -196,6 +196,7 @@ function App() {
 
   return (
     <>
+    <div className="hidden-reveal-layer" />
     <div className="glow" />
     <div ref={cursorRef} className="cursor" />
     <div className="page">
