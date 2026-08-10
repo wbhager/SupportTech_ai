@@ -560,7 +560,7 @@ button, textarea, input {
 }
 
 .bubble-row.assistant .bubble-text {
-  background: rgba(128, 128, 128, 0.80);
+  background: rgba(160, 160, 160, 0.80);
   color: var(--text);
   border-bottom-left-radius: 4px;
 }
