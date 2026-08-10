@@ -30,6 +30,7 @@ function App() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
   const inputRectRef = useRef<DOMRect | null>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.documentElement.className = theme;
@@ -56,6 +57,23 @@ function App() {
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
+
+  // ── custom cursor + mouse-following glow 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty("--x", `${e.clientX}px`);
+      document.documentElement.style.setProperty("--y", `${e.clientY}px`);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  const setCursorMode = (mode: "button" | "text" | null) => {
+    const el = cursorRef.current;
+    if (!el) return;
+    el.classList.remove("mode-button", "mode-text");
+    if (mode) el.classList.add(`mode-${mode}`);
+  };
 
   useEffect(() => {
     if (sidebarOpen) {
@@ -178,6 +196,8 @@ function App() {
 
   return (
     <>
+    <div className="glow" />
+    <div ref={cursorRef} className="cursor" />
     <div className="page">
       {/* flying bubbles overlay */}
       {flyingBubbles.map((b) => (
@@ -188,8 +208,8 @@ function App() {
         <div className="theme-switcher">
           <span className="theme-label"> Apply New Color Theme </span>
           <div className="theme-options">
-            <button className="btn-default" onClick={() => setTheme("theme-default")}>Default</button>
-            <button className="btn-dark" onClick={() => setTheme("theme-dark")}>Dark</button>
+            <button className="btn-default" onClick={() => setTheme("theme-default")} onMouseEnter={() => setCursorMode("button")} onMouseLeave={() => setCursorMode(null)}>Default</button>
+            <button className="btn-dark" onClick={() => setTheme("theme-dark")} onMouseEnter={() => setCursorMode("button")} onMouseLeave={() => setCursorMode(null)}>Dark</button>
           </div>
         </div>
       </div>
@@ -217,19 +237,30 @@ function App() {
       </div>
 
       <div className="page-bottom">
-        <textarea
-          ref={textareaRef}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-          disabled={isLoading}
-          placeholder="Type a message… (Enter to send, Shift+Enter for newline)"
-          rows={1}
-          className="chat-input"
-        />
-        <button onClick={sendMessage} disabled={isLoading} className="send-btn">
-          {isLoading ? "Sending…" : "Send"}
-        </button>
+      <textarea
+        ref={textareaRef}
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={handleKeyDown}
+        disabled={isLoading}
+        placeholder="Type a message… (Enter to send, Shift+Enter for newline)"
+        rows={1}
+        className="chat-input"
+        onMouseEnter={() => setCursorMode("text")}
+        onMouseLeave={() => setCursorMode(null)}
+      />
+        <span
+          onMouseEnter={() => setCursorMode("button")}
+          onMouseLeave={() => setCursorMode(null)}
+        >
+          <button
+            onClick={sendMessage}
+            disabled={isLoading}
+            className="send-btn"
+          >
+            {isLoading ? "Sending…" : "Send"}
+          </button>
+        </span>
       </div>
     </div>
 

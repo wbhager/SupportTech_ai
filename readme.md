@@ -133,6 +133,8 @@ Qwen would actually take the added context queries into account when answering t
 
 8/7: Fixed lots of dependency issues and syntax errors that came from testing out the evaluation logic and logging all of that into my evaluations table, updated both the qwen_system and claude evaluation prompts repeatedly so that qwen produced the types of responses that I wanted and that claude could accurately grade based on what qwen was assigned to do
 
+8/10:
+
 FRONTEND MISSION: Make it stylish! Add some background textures and tools that I haven't used before and really make this new interface pop out more than my
 previous agent. Also, move bubble logic into different files and different folders so the app.tsx file is not cluttered
 

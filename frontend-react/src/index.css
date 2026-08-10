@@ -65,7 +65,7 @@ body {
   align-items: center;
   padding: 8px;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: none;
   gap: 8px;
 }
 
@@ -138,6 +138,7 @@ body {
   height: 40px;
   font-size: 24px;
   cursor: pointer;
+  pointer-events: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   margin-top: 8px;
   opacity: 0;
@@ -148,6 +149,7 @@ body {
 .new-conv-btn-visible {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
 .sidebar-buttons {
@@ -195,6 +197,103 @@ body {
   border-radius: var(--radius);
   background: var(--primary);
   color: var(--text);
+}
+
+/* Styled div that follows the mouse */
+body { cursor: none; }
+.custom-cursor {
+  position: fixed;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: white;
+  pointer-events: none; /* so it never blocks clicks */
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+/* Glow that follows the mouse */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    300px circle at var(--x) var(--y),
+    rgba(120, 170, 255, 0.25),
+    transparent 80%
+  );
+}
+
+:root {
+  --glow-color: 255, 79, 216; /* matches your bubble pink — change freely */
+  --glow-size: 350px;
+  --x: 50vw;
+  --y: 50vh;
+}
+
+html, body { cursor: none; }
+
+.glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    var(--glow-size) circle at var(--x) var(--y),
+    rgba(var(--glow-color), 0.18),
+    rgba(var(--glow-color), 0.05) 40%,
+    transparent 70%
+  );
+  z-index: 9998; /* just under the flying-bubble canvases (9999) */
+}
+
+.cursor {
+  position: fixed;
+  left: var(--x);
+  top: var(--y);
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: rgb(var(--glow-color));
+  box-shadow: 0 0 10px 2px rgba(var(--glow-color), 0.7);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 120ms ease, height 120ms ease, margin 120ms ease,
+              border-radius 120ms ease, background 120ms ease;
+  z-index: 9999;
+}
+
+/* Button symbol: a ring with a small dot in the center */
+.cursor.mode-button {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  background: rgba(var(--glow-color), 0.12);
+  border: 2px solid rgb(var(--glow-color));
+  box-shadow: none;
+}
+.cursor.mode-button::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(var(--glow-color));
+}
+
+/* Text-box symbol: a thin I-beam */
+.cursor.mode-text {
+  width: 3px;
+  height: 26px;
+  margin: -13px 0 0 -1.5px;
+  border-radius: 2px;
+  background: rgb(var(--glow-color));
+  box-shadow: none;
+}
+
+button, textarea, input {
+  cursor: none !important;
 }
 
 /* Box expands and turns gold on hover */
@@ -275,6 +374,10 @@ body {
 .theme-switcher:hover .theme-options {
   opacity: 1;
   max-width: 200px;
+}
+
+.theme-switcher, .theme-label {
+  cursor: none;
 }
 
 /* Buttons get the pointer cursor, not the box */
