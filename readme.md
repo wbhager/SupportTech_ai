@@ -15,6 +15,7 @@ To-do:
 
     Backend:
         - Adjust evaluation and model system prompts so that the model produces what I want it to and the evaluation prompt evaluates the model accurately
+        - Add thumbs up/down button that also gets added to the successful answers that the model learns from
         - Set up learning portion of flywheel where the Qwen learns from the top response
         - Begin PyTorch code manipulation
         - Perform edge-case testing everywhere to check for bugs
@@ -140,4 +141,4 @@ Qwen would actually take the added context queries into account when answering t
 
 FRONTEND MISSION: Make it more stylish! The hidden background image is cool, but I want to be able to make the normal background pop a little bit more.
 
-BACKEND MISSION: Figure out if you're keeping step 0 in the system_prompt file. The additional statement is occasionally being added, but seemingly at the cost of markdown. I'd like to include both, but if all else fails, the basics including markdown works in the previous commit that I have where I only include steps 1-6
+BACKEND MISSION: Figure out if you're keeping step 0 in the system_prompt file. The additional statement is occasionally being added, but seemingly at the cost of markdown. I'd like to include both, but if all else fails, the basics including markdown works in the previous commit that I have where I only include steps 1-6.
