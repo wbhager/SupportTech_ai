@@ -46,7 +46,7 @@ def respond_to_user(user_input, conv_id, tool_name=None, tool_result=None, relev
         messages=messages,
         options={
             "num_predict": 256,
-            "temperature": 0.7,
+            "temperature": 0.3,
             "top_p": 0.9,
         }
     )
