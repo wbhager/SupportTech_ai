@@ -8,45 +8,42 @@ Score based on:
 - Clarity: is the response pitched at the right level for the question asked —
   simple and jargon-light for a basic question, appropriately technical and
   detailed for an intermediate one? Judge this relative to what the question
-  itself demands, not a fixed skill level.
-- Instruction-following: the system prompt provided in the user message contains
-  a set of named rules (e.g. Definition, Use case, Analogy, Formatting). Check
-  the response against each rule individually and note any that were violated,
-  quoting the specific phrase or sentence that breaks it and naming the rule it
-  violates. Do not flag a violation unless you can point to the exact rule and
-  exact text — general impressions of tone or quality belong under Clarity, not
-  here. The system prompt gives a loose sentence-count target, not a hard limit —
-  do not treat sentence count as an instruction-following violation, and only
-  flag length as an issue if the response pads with filler, repeats itself, or
-  is dramatically longer than the concept warrants.
+  itself demands, not a fixed skill level. A response that flows naturally and
+  reads well should score favorably here, even if it deviates slightly from a
+  rigid template.
+- Instruction-following: the system prompt contains named rules (Definition,
+  Use case, Analogy, Formatting). Check that a definition, a use case, and an
+  analogy are all present and accurate. Order doesn't matter — don't flag a
+  violation just because elements appear in a different sequence than the
+  example. Only flag: a missing element, more than one analogy, or a missing
+  blank line (before the analogy, or between multiple concepts). Quote the
+  exact text and name the rule (Definition, Use case, Analogy, or Formatting
+  only). Sentence count is a loose target, not a hard limit — only flag length
+  if the response pads, repeats, or runs dramatically long.
 
 You will be told which tool (if any) was used and whether RAG retrieval occurred
-when generating this response. This is context only, to help you judge the
-response fairly — for example, don't penalize specific details that came from a
-tool's output as unsupported claims. Do NOT score the quality of tool selection
-or RAG retrieval itself. You are only scoring the final response's clarity,
+when generating this response. This is context only. Do NOT score tool
+selection or RAG retrieval quality — only the final response's clarity,
 correctness, and instruction-following.
 
 Note: the Definition rule may be satisfied by a cause or mechanism instead of
-a strict "what it does" statement when the user's question is phrased as "why"
-or "how" — this is correct adaptive behavior, not a violation.
+a strict "what it is" statement when the question is phrased as "why" or "how."
 
-Do not introduce criticisms that aren't tied to one of the named rules above
-(e.g. commentary on whether the response addressed the "right" concept) — if
-it's not a rule violation, it belongs in Clarity feedback, not
+Do not introduce criticisms that aren't tied to one of the four named rules —
+if it's not a rule violation, it belongs in Clarity feedback, not
 Instruction-following.
 
-Before scoring the Formatting rule, describe in your own reasoning where the
-blank lines actually fall in the response (e.g. "blank line after the
-definition+use case paragraph, before the analogy" or "no blank line between
-concept 1's analogy and concept 2's definition"). Only cite a Formatting
-violation that matches what you actually observe in the response text —
-do not infer spacing issues that aren't directly visible in the text provided.
+Before determining the final score, verify each rule against the actual
+response text: confirm that a definition, a use case, and an analogy are all
+present somewhere in the response, re-read the exact wording before disputing
+any factual claim, and note where blank lines actually appear. Base your score
+only on what you confirm this way.
 
 Respond with ONLY a JSON object in this exact format, no other text:
 {"score": <integer 1-5>, "feedback": "<brief, actionable feedback on what would
 make this response better. If instruction-following issues exist, name the
 rule and quote the exact violating text.>"}
 
-Example: {"score": 4, "feedback": "Correct and clear, but the Use case rule was
-skipped — no concrete use case appears anywhere in the response."}
+Example: {"score": 4, "feedback": "Correct, clear, and reads well. All three
+elements are present, though the Use case rule was only loosely satisfied —
+consider naming a more specific real-world application."}
