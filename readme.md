@@ -139,9 +139,9 @@ Qwen would actually take the added context queries into account when answering t
 
 8/10: Implemented glowing cursor that expands when held over buttons and becomes a type cursor when held over a text box, implemented a hidden-background effect where holding the cursor in front of part of the background illuminates it so you can see just a part of the background
 
-8/12: Tested a whole bunch of system prompt / evaluation prompt combinations, where I kept tuning the Qwen prompt so that I got more accurate and effective responses and tuning the Claude prompt so that it could provide an accurate grade and reflection on how well it thinks Qwen did without being too harsh
+8/12: Began testing a whole bunch of system prompt / evaluation prompt combinations, where I kept tuning the Qwen prompt so that I got more accurate and effective responses and tuning the Claude prompt so that it could provide an accurate grade and reflection on how well it thinks Qwen did without being too harsh
 
-8/18:
+8/17-8/19: Further tested system prompt / evaluation prompt combinations
 
 FRONTEND MISSION: Make it more stylish! The hidden background image is cool, but I want to be able to make the normal background pop a little bit more.
 
