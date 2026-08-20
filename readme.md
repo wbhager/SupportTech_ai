@@ -14,13 +14,10 @@ Note-to-self: Don't forget command D for being able to edit multiple words at on
 To-do:
 
     Backend:
-        - Adjust evaluation and model system prompts so that the model produces what I want it to and the evaluation prompt evaluates the model accurately
-        - Add thumbs up/down button that also gets added to the successful answers that the model learns from
-        - Set up learning portion of flywheel where the Qwen learns from the top response
-        - Begin PyTorch code manipulation
+        - Adjust evaluation and model system prompts ever so slightly to easen up the evaluations and change up the word play of the analogies a tiny bit
+        - Set up learning pipeline of flywheel where the Qwen learns from the most recent top response and one baseline response from a new file
+        - Add thumbs up/down button that also gets added to the successful answers that the model learns from (Optional)
         - Perform edge-case testing everywhere to check for bugs
-        - Review LoRA/PEFT/Quantization in order for concepts to stick
-
 
     Frontend:
         - Make initial front page design "pop" a little bit more
@@ -143,6 +140,8 @@ Qwen would actually take the added context queries into account when answering t
 
 8/17-8/19: Further tested system prompt / evaluation prompt combinations
 
+8/20: FINALLY got the system prompt to basically be how I want it - a concise definition of the main topic/tool asked about, a real-life use-case, and a relatable analogy, with no extra words or sentences or spaces or anything of the like. Evaluation prompt is much better now too, it is evaluating more important rules more harsher than the less important rules, and loosened the expectations of the model because it was expecting fantastic responses, which is not super feesible with such a small model.
+
 FRONTEND MISSION: Make it more stylish! The hidden background image is cool, but I want to be able to make the normal background pop a little bit more.
 
-BACKEND MISSION: Figure out if you're keeping step 0 in the system_prompt file. The additional statement is occasionally being added, but seemingly at the cost of markdown. I'd like to include both, but if all else fails, the basics including markdown works in the previous commit that I have where I only include steps 1-6.
+BACKEND MISSION: Loosen up the restrictions on the evaluation prompt a bit further, potentially by reminding it that it is helping beginning-to-intermediate programmers, consider changing the starts of each of the analogies (if possible), start the example pipeline!
