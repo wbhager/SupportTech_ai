@@ -23,7 +23,6 @@ To-do:
         - Make initial front page design "pop" a little bit more
         - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
         - Continue developing color themes as the site gets more populated and there are more things to color in
-        - De-clutter the app.tsx file by moving components like bubbles into separate fles, app.tsx should only run components instead of define them
 
 <br> <br> <br>
 
@@ -142,7 +141,9 @@ Qwen would actually take the added context queries into account when answering t
 
 8/20: FINALLY got the system prompt to basically be how I want it - a concise definition of the main topic/tool asked about, a real-life use-case, and a relatable analogy, with no extra words or sentences or spaces or anything of the like. Evaluation prompt is much better now too, it is evaluating more important rules more harsher than the less important rules, and loosened the expectations of the model because it was expecting fantastic responses, which is not super feesible with such a small model.
 
-8/21: Decluttered my App.tsx file by putting each component into several separate files and using an entirely new App file called App_new.tsx,
+8/21: Decluttered my App.tsx file by putting each component into several separate files and using an entirely new App file called App_new.tsx
+
+8/26: Added enum type column to evaluations table called promotion_status, which marks if an evaluation is pending approval for being used as an example to be trained on, approved, or rejected
 
 FRONTEND MISSION: Make it more stylish! The hidden background image is cool, but I want to be able to make the normal background pop a little bit more.
 
