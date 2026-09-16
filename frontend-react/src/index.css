@@ -202,7 +202,8 @@ body {
 }
 
 /* Styled div that follows the mouse */
-body { cursor: none; }
+.page { cursor: none; }
+
 .custom-cursor {
   position: fixed;
   width: 20px; height: 20px;
@@ -232,8 +233,6 @@ body::before {
   --x: 50vw;
   --y: 50vh;
 }
-
-html, body { cursor: none; }
 
 .glow {
   position: fixed;
