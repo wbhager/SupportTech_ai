@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from backend.routes import chat, conversations
+from backend.routes import chat, conversations, promotion
 from backend.logic.responder import respond_to_user
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -11,6 +11,7 @@ app = FastAPI()
 
 app.include_router(chat.router)
 app.include_router(conversations.router)
+app.include_router(promotion.router)
 
 app.add_middleware(
     CORSMiddleware,
