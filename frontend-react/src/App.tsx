@@ -1,486 +1,486 @@
-import { useState, useEffect, useRef } from "react";
-import ReactMarkdown from "react-markdown";
+  // import { useState, useEffect, useRef } from "react";
+  // import ReactMarkdown from "react-markdown";
 
-type Message = {
-  id: number;
-  text: string;
-  role: "user" | "assistant";
-  popped: boolean;
-};
+  // type Message = {
+  // id: number;
+  // text: string;
+  // role: "user" | "assistant";
+  // popped: boolean;
+  // };
 
-type FlyingBubble = {
-  id: number;
-  role: "user" | "assistant";
-  startX: number;
-  startY: number;
-  endX: number;
-  endY: number;
-};
+  // type FlyingBubble = {
+  // id: number;
+  // role: "user" | "assistant";
+  // startX: number;
+  // startY: number;
+  // endX: number;
+  // endY: number;
+  // };
 
-function App() {
-  const [convId, setConvId] = useState<string>(() => crypto.randomUUID());
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [flyingBubbles, setFlyingBubbles] = useState<FlyingBubble[]>([]);
-  const [theme, setTheme] = useState("theme-default");
-  const [isLoading, setIsLoading] = useState(false);
-  const [conversations, setConversations] = useState<{conv_id: string, title: string}[]>([]);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const feedRef = useRef<HTMLDivElement>(null);
-  const inputRectRef = useRef<DOMRect | null>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const [bgMode, setBgMode] = useState<"reveal" | "colorSpot">("reveal");
+  // function App() {
+  // const [convId, setConvId] = useState<string>(() => crypto.randomUUID());
+  // const [message, setMessage] = useState("");
+  // const [messages, setMessages] = useState<Message[]>([]);
+  // const [flyingBubbles, setFlyingBubbles] = useState<FlyingBubble[]>([]);
+  // const [theme, setTheme] = useState("theme-default");
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [conversations, setConversations] = useState<{conv_id: string, title: string}[]>([]);
+  // const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // const messagesEndRef = useRef<HTMLDivElement>(null);
+  // const feedRef = useRef<HTMLDivElement>(null);
+  // const inputRectRef = useRef<DOMRect | null>(null);
+  // const cursorRef = useRef<HTMLDivElement>(null);
+  // const [bgMode, setBgMode] = useState<"reveal" | "colorSpot">("reveal");
 
-  useEffect(() => {
-    document.documentElement.className = theme;
-  }, [theme]);
+  // useEffect(() => {
+  //   document.documentElement.className = theme;
+  // }, [theme]);
 
-  useEffect(() => {
-    const el = textareaRef.current;
-    if (!el) return;
-    el.style.height = "auto";
-    el.style.height = el.scrollHeight + "px";
-  }, [message]);
+  // useEffect(() => {
+  //   const el = textareaRef.current;
+  //   if (!el) return;
+  //   el.style.height = "auto";
+  //   el.style.height = el.scrollHeight + "px";
+  // }, [message]);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  // useEffect(() => {
+  //   messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [messages]);
 
-  useEffect(() => {
-    const update = () => {
-      if (textareaRef.current) {
-        inputRectRef.current = textareaRef.current.getBoundingClientRect();
-      }
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
+  // useEffect(() => {
+  //   const update = () => {
+  //     if (textareaRef.current) {
+  //       inputRectRef.current = textareaRef.current.getBoundingClientRect();
+  //     }
+  //   };
+  //   update();
+  //   window.addEventListener("resize", update);
+  //   return () => window.removeEventListener("resize", update);
+  // }, []);
 
-  // ── custom cursor + mouse-following glow 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      document.documentElement.style.setProperty("--x", `${e.clientX}px`);
-      document.documentElement.style.setProperty("--y", `${e.clientY}px`);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  // // ── custom cursor + mouse-following glow 
+  // useEffect(() => {
+  //   const handleMouseMove = (e: MouseEvent) => {
+  //     document.documentElement.style.setProperty("--x", `${e.clientX}px`);
+  //     document.documentElement.style.setProperty("--y", `${e.clientY}px`);
+  //   };
+  //   window.addEventListener("mousemove", handleMouseMove);
+  //   return () => window.removeEventListener("mousemove", handleMouseMove);
+  // }, []);
 
-  const setCursorMode = (mode: "button" | "text" | null) => {
-    const el = cursorRef.current;
-    if (!el) return;
-    el.classList.remove("mode-button", "mode-text");
-    if (mode) el.classList.add(`mode-${mode}`);
-  };
+  // const setCursorMode = (mode: "button" | "text" | null) => {
+  //   const el = cursorRef.current;
+  //   if (!el) return;
+  //   el.classList.remove("mode-button", "mode-text");
+  //   if (mode) el.classList.add(`mode-${mode}`);
+  // };
 
-  useEffect(() => {
-    if (sidebarOpen) {
-      fetch("http://localhost:8000/conversations")
-        .then((res) => res.json())
-        .then((data) => {
-          setConversations(data.conversations);
-        })
-        .catch((err) => {
-          console.error("Error fetching conversations:", err);
-        });
-    }
-  }, [sidebarOpen]);
+  // useEffect(() => {
+  //   if (sidebarOpen) {
+  //     fetch("http://localhost:8000/conversations")
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setConversations(data.conversations);
+  //       })
+  //       .catch((err) => {
+  //         console.error("Error fetching conversations:", err);
+  //       });
+  //   }
+  // }, [sidebarOpen]);
 
-  const sendMessage = async () => {
-    if (!message.trim() || isLoading) return;
+  // const sendMessage = async () => {
+  //   if (!message.trim() || isLoading) return;
     
-    // Capture position first, before anything changes
-    if (textareaRef.current) {
-      inputRectRef.current = textareaRef.current.getBoundingClientRect();
-    }
-    const inputRect = inputRectRef.current;
+  //   // Capture position first, before anything changes
+  //   if (textareaRef.current) {
+  //     inputRectRef.current = textareaRef.current.getBoundingClientRect();
+  //   }
+  //   const inputRect = inputRectRef.current;
     
-    const userText = message;
-    setMessage("");
-  
-    // Capture rects synchronously before any state changes
-    const feedRect = feedRef.current?.getBoundingClientRect();
-  
-    // Helper to build a flying bubble using pre-captured rects
-    const launchBubble = (text: string, role: "user" | "assistant") => {
-      const id = Date.now() + Math.random();
-  
-      const startX = inputRect
-        ? inputRect.left + inputRect.width / 2
-        : window.innerWidth / 2;
-      const startY = inputRect ? inputRect.top : window.innerHeight - 100;
-  
-      // Placing bubble at correct position
-      const endRect = messagesEndRef.current?.getBoundingClientRect();
-      const endY = Math.min(
-        Math.max(endRect ? endRect.top : feedRect ? feedRect.bottom - 60 : window.innerHeight - 200, 50),
-        window.innerHeight - 50
-      );
+  //   const userText = message;
+  //   setMessage("");
+
+  //   // Capture rects synchronously before any state changes
+  //   const feedRect = feedRef.current?.getBoundingClientRect();
+
+  //   // Helper to build a flying bubble using pre-captured rects
+  //   const launchBubble = (text: string, role: "user" | "assistant") => {
+  //     const id = Date.now() + Math.random();
+
+  //     const startX = inputRect
+  //       ? inputRect.left + inputRect.width / 2
+  //       : window.innerWidth / 2;
+  //     const startY = inputRect ? inputRect.top : window.innerHeight - 100;
+
+  //     // Placing bubble at correct position
+  //     const endRect = messagesEndRef.current?.getBoundingClientRect();
+  //     const endY = Math.min(
+  //       Math.max(endRect ? endRect.top : feedRect ? feedRect.bottom - 60 : window.innerHeight - 200, 50),
+  //       window.innerHeight - 50
+  //     );
       
-      const endX = Math.min(
-        Math.max(
-          endRect
-            ? role === "user"
-              ? Math.min(endRect.right - 60, window.innerWidth - 80)
-              : Math.max(endRect.left + 60, 80)
-            : role === "user" ? window.innerWidth - 80 : 80,
-          50
-        ),
-        window.innerWidth - 50
-      );
-  
-      setFlyingBubbles((prev) => [...prev, { id, role, startX, startY, endX, endY }]);
-  
-      setTimeout(() => {
-        setFlyingBubbles((prev) => prev.filter((b) => b.id !== id));
-        setMessages((prev) => [...prev, { id, text, role, popped: false }]);
-        setTimeout(() => {
-          setMessages((prev) =>
-            prev.map((m) => (m.id === id ? { ...m, popped: true } : m))
-          );
-        }, 50);
-      }, 2200);
-    };
-  
-    launchBubble(userText, "user");
-    setIsLoading(true);
-  
-    try {
-      const res = await fetch("http://localhost:8000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conv_id: convId, message: userText }),
-      });
-      const data = await res.json();
-      launchBubble(data.response, "assistant");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     const endX = Math.min(
+  //       Math.max(
+  //         endRect
+  //           ? role === "user"
+  //             ? Math.min(endRect.right - 60, window.innerWidth - 80)
+  //             : Math.max(endRect.left + 60, 80)
+  //           : role === "user" ? window.innerWidth - 80 : 80,
+  //         50
+  //       ),
+  //       window.innerWidth - 50
+  //     );
 
-  const deleteConversation = async (conv_id: string) => {
-    await fetch(`http://localhost:8000/conversations/${conv_id}`, {
-      method: "DELETE",
-    });
-    setConversations(prev => prev.filter(c => c.conv_id !== conv_id));
-  };
+  //     setFlyingBubbles((prev) => [...prev, { id, role, startX, startY, endX, endY }]);
 
-  const loadConversation = async (conv_id: string) => {
-    setConvId(conv_id);
-    const res = await fetch(`http://localhost:8000/conversations/${conv_id}/messages`);
-    const data = await res.json();
-    setMessages(
-      data.messages.map((msg: {role: string, content: string}, index: number) => ({
-        id: index,
-        text: msg.content,
-        role: msg.role,
-        popped: true,
-      }))
-    );
-  };
+  //     setTimeout(() => {
+  //       setFlyingBubbles((prev) => prev.filter((b) => b.id !== id));
+  //       setMessages((prev) => [...prev, { id, text, role, popped: false }]);
+  //       setTimeout(() => {
+  //         setMessages((prev) =>
+  //           prev.map((m) => (m.id === id ? { ...m, popped: true } : m))
+  //         );
+  //       }, 50);
+  //     }, 2200);
+  //   };
 
-  const newConversation = () => {
-    setConvId(crypto.randomUUID())
-    setMessages([])
-    setSidebarOpen(false)
-  }
+  //   launchBubble(userText, "user");
+  //   setIsLoading(true);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
+  //   try {
+  //     const res = await fetch("http://localhost:8000/chat", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ conv_id: convId, message: userText }),
+  //     });
+  //     const data = await res.json();
+  //     launchBubble(data.response, "assistant");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  return (
-    <>
-    {bgMode === "reveal" && <div className="hidden-reveal-layer" />}
-    {bgMode === "colorSpot" && (
-      <>
-        <div className="grayscale-layer" />
-        <div className="color-spot-layer" />
-      </>
-    )}    
-    <div className="glow" />
-    <div ref={cursorRef} className="cursor" />
-    <div className="page">
-      {/* flying bubbles overlay */}
-      {flyingBubbles.map((b) => (
-        <FlyingBubbleEl key={b.id} bubble={b} />
-      ))}
+  // const deleteConversation = async (conv_id: string) => {
+  //   await fetch(`http://localhost:8000/conversations/${conv_id}`, {
+  //     method: "DELETE",
+  //   });
+  //   setConversations(prev => prev.filter(c => c.conv_id !== conv_id));
+  // };
 
-      <div className="page-top">
-        <button
-        onClick={() => setBgMode(bgMode === "reveal" ? "colorSpot" : "reveal")}
-        onMouseEnter={() => setCursorMode("button")}
-        onMouseLeave={() => setCursorMode(null)}
-        >
-        {bgMode === "reveal" ? "Switch to Color Spotlight" : "Switch to Hidden Reveal"}
-        </button>
-        <div className="theme-switcher">
-          <span className="theme-label"> Apply New Color Theme </span>
-          <div className="theme-options">
-            <button className="btn-default" onClick={() => setTheme("theme-default")} onMouseEnter={() => setCursorMode("button")} onMouseLeave={() => setCursorMode(null)}>Default</button>
-            <button className="btn-dark" onClick={() => setTheme("theme-dark")} onMouseEnter={() => setCursorMode("button")} onMouseLeave={() => setCursorMode(null)}>Dark</button>
-          </div>
-        </div>
-      </div>
+  // const loadConversation = async (conv_id: string) => {
+  //   setConvId(conv_id);
+  //   const res = await fetch(`http://localhost:8000/conversations/${conv_id}/messages`);
+  //   const data = await res.json();
+  //   setMessages(
+  //     data.messages.map((msg: {role: string, content: string}, index: number) => ({
+  //       id: index,
+  //       text: msg.content,
+  //       role: msg.role,
+  //       popped: true,
+  //     }))
+  //   );
+  // };
 
-      <div className="messages-feed" ref={feedRef}>
-        {messages.map((m) => (
-          <div key={m.id} className={`bubble-row ${m.role}`}>
-            <div className={`bubble-outer ${m.popped ? "popped" : "pre-pop"}`}>
-              <div className="bubble-text">
-                <ReactMarkdown>{m.text}</ReactMarkdown>
-              </div>
-            </div>
-          </div>
-        ))}
-        {isLoading && (
-          <div className="bubble-row assistant">
-            <div className="bubble-outer popped">
-              <div className="bubble-text loading-bubble">
-                <span /><span /><span />
-              </div>
-            </div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
+  // const newConversation = () => {
+  //   setConvId(crypto.randomUUID())
+  //   setMessages([])
+  //   setSidebarOpen(false)
+  // }
 
-      <div className="page-bottom">
-      <textarea
-        ref={textareaRef}
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        onKeyDown={handleKeyDown}
-        disabled={isLoading}
-        placeholder="Type a message… (Enter to send, Shift+Enter for newline)"
-        rows={1}
-        className="chat-input"
-        onMouseEnter={() => setCursorMode("text")}
-        onMouseLeave={() => setCursorMode(null)}
-      />
-        <span
-          onMouseEnter={() => setCursorMode("button")}
-          onMouseLeave={() => setCursorMode(null)}
-        >
-          <button
-            onClick={sendMessage}
-            disabled={isLoading}
-            className="send-btn"
-          >
-            {isLoading ? "Sending…" : "Send"}
-          </button>
-        </span>
-      </div>
-    </div>
+  // const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  //   if (e.key === "Enter" && !e.shiftKey) {
+  //     e.preventDefault();
+  //     sendMessage();
+  //   }
+  // };
 
-    <div className="sidebar-container">
-      <div className="sidebar-buttons">
-        <button
-          className="sidebar-toggle"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-        >
-          {sidebarOpen ? "✕" : "💬"}
-        </button>
-        <button
-          className={`new-conv-btn ${sidebarOpen ? "new-conv-btn-visible" : ""}`}
-          onClick={newConversation}
-        >
-          +
-        </button>
-      </div>
-      {sidebarOpen && (
-        <div className="sidebar-panel">
-          {conversations.map((conv, index) => (
-            <div
-              key={conv.conv_id}
-              className="sidebar-item"
-              style={{ animationDelay: `${0.05 + index * 0.1}s` }}
-            >
-              <span onClick={() => loadConversation(conv.conv_id)}>{conv.title}</span>
-              <button onClick={() => deleteConversation(conv.conv_id)}>✕</button>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  </>
-  );
-}
+  // return (
+  //   <>
+  //   {bgMode === "reveal" && <div className="hidden-reveal-layer" />}
+  //   {bgMode === "colorSpot" && (
+  //     <>
+  //       <div className="grayscale-layer" />
+  //       <div className="color-spot-layer" />
+  //     </>
+  //   )}    
+  //   <div className="glow" />
+  //   <div ref={cursorRef} className="cursor" />
+  //   <div className="page">
+  //     {/* flying bubbles overlay */}
+  //     {flyingBubbles.map((b) => (
+  //       <FlyingBubbleEl key={b.id} bubble={b} />
+  //     ))}
 
-// ── animated flying bubble component ──────────────────────────────────────────
-function FlyingBubbleEl({ bubble }: { bubble: FlyingBubble }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animRef = useRef<number>(0);
+  //     <div className="page-top">
+  //       <button
+  //       onClick={() => setBgMode(bgMode === "reveal" ? "colorSpot" : "reveal")}
+  //       onMouseEnter={() => setCursorMode("button")}
+  //       onMouseLeave={() => setCursorMode(null)}
+  //       >
+  //       {bgMode === "reveal" ? "Switch to Color Spotlight" : "Switch to Hidden Reveal"}
+  //       </button>
+  //       <div className="theme-switcher">
+  //         <span className="theme-label"> Apply New Color Theme </span>
+  //         <div className="theme-options">
+  //           <button className="btn-default" onClick={() => setTheme("theme-default")} onMouseEnter={() => setCursorMode("button")} onMouseLeave={() => setCursorMode(null)}>Default</button>
+  //           <button className="btn-dark" onClick={() => setTheme("theme-dark")} onMouseEnter={() => setCursorMode("button")} onMouseLeave={() => setCursorMode(null)}>Dark</button>
+  //         </div>
+  //       </div>
+  //     </div>
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  //     <div className="messages-feed" ref={feedRef}>
+  //       {messages.map((m) => (
+  //         <div key={m.id} className={`bubble-row ${m.role}`}>
+  //           <div className={`bubble-outer ${m.popped ? "popped" : "pre-pop"}`}>
+  //             <div className="bubble-text">
+  //               <ReactMarkdown>{m.text}</ReactMarkdown>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       ))}
+  //       {isLoading && (
+  //         <div className="bubble-row assistant">
+  //           <div className="bubble-outer popped">
+  //             <div className="bubble-text loading-bubble">
+  //               <span /><span /><span />
+  //             </div>
+  //           </div>
+  //         </div>
+  //       )}
+  //       <div ref={messagesEndRef} />
+  //     </div>
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  //     <div className="page-bottom">
+  //     <textarea
+  //       ref={textareaRef}
+  //       value={message}
+  //       onChange={(e) => setMessage(e.target.value)}
+  //       onKeyDown={handleKeyDown}
+  //       disabled={isLoading}
+  //       placeholder="Type a message… (Enter to send, Shift+Enter for newline)"
+  //       rows={1}
+  //       className="chat-input"
+  //       onMouseEnter={() => setCursorMode("text")}
+  //       onMouseLeave={() => setCursorMode(null)}
+  //     />
+  //       <span
+  //         onMouseEnter={() => setCursorMode("button")}
+  //         onMouseLeave={() => setCursorMode(null)}
+  //       >
+  //         <button
+  //           onClick={sendMessage}
+  //           disabled={isLoading}
+  //           className="send-btn"
+  //         >
+  //           {isLoading ? "Sending…" : "Send"}
+  //         </button>
+  //       </span>
+  //     </div>
+  //   </div>
 
-    const { startX, startY, endX, endY } = bubble;
-    const duration = 2200;
-    const start = performance.now();
+  //   <div className="sidebar-container">
+  //     <div className="sidebar-buttons">
+  //       <button
+  //         className="sidebar-toggle"
+  //         onClick={() => setSidebarOpen(!sidebarOpen)}
+  //       >
+  //         {sidebarOpen ? "✕" : "💬"}
+  //       </button>
+  //       <button
+  //         className={`new-conv-btn ${sidebarOpen ? "new-conv-btn-visible" : ""}`}
+  //         onClick={newConversation}
+  //       >
+  //         +
+  //       </button>
+  //     </div>
+  //     {sidebarOpen && (
+  //       <div className="sidebar-panel">
+  //         {conversations.map((conv, index) => (
+  //           <div
+  //             key={conv.conv_id}
+  //             className="sidebar-item"
+  //             style={{ animationDelay: `${0.05 + index * 0.1}s` }}
+  //           >
+  //             <span onClick={() => loadConversation(conv.conv_id)}>{conv.title}</span>
+  //             <button onClick={() => deleteConversation(conv.conv_id)}>✕</button>
+  //           </div>
+  //         ))}
+  //       </div>
+  //     )}
+  //   </div>
+  // </>
+  // );
+  // }
 
-    // generate squiggly waypoints between start and end
-    const numPoints = 8;
-    const waypoints: { x: number; y: number }[] = [];
-    for (let i = 0; i <= numPoints; i++) {
-      const t = i / numPoints;
-      const baseX = startX + (endX - startX) * t;
-      const baseY = startY + (endY - startY) * t;
-      // perpendicular wiggle, stronger in the middle, random direction
-      const wiggleStrength = Math.sin(t * Math.PI) * 120;
-      const wiggleX = (Math.random() - 0.5) * wiggleStrength;
-      const wiggleY = (Math.random() - 0.5) * wiggleStrength * 0.5;
-      waypoints.push({ x: baseX + wiggleX, y: baseY + wiggleY });
-    }
-    // pin start and end exactly
-    waypoints[0] = { x: startX, y: startY };
-    waypoints[numPoints] = { x: endX, y: endY };
+  // // ── animated flying bubble component ──────────────────────────────────────────
+  // function FlyingBubbleEl({ bubble }: { bubble: FlyingBubble }) {
+  // const canvasRef = useRef<HTMLCanvasElement>(null);
+  // const animRef = useRef<number>(0);
 
-    // catmull-rom interpolation along waypoints
-    function catmullRom(
-      pts: { x: number; y: number }[],
-      t: number
-    ): { x: number; y: number } {
-      const n = pts.length - 1;
-      const scaled = t * n;
-      const i = Math.min(Math.floor(scaled), n - 1);
-      const lt = scaled - i;
-      const p0 = pts[Math.max(i - 1, 0)];
-      const p1 = pts[i];
-      const p2 = pts[Math.min(i + 1, n)];
-      const p3 = pts[Math.min(i + 2, pts.length - 1)];
-      const x =
-        0.5 *
-        ((2 * p1.x) +
-          (-p0.x + p2.x) * lt +
-          (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * lt * lt +
-          (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * lt * lt * lt);
-      const y =
-        0.5 *
-        ((2 * p1.y) +
-          (-p0.y + p2.y) * lt +
-          (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * lt * lt +
-          (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * lt * lt * lt);
-      return { x, y };
-    }
+  // useEffect(() => {
+  //   const canvas = canvasRef.current;
+  //   if (!canvas) return;
+  //   const ctx = canvas.getContext("2d");
+  //   if (!ctx) return;
 
-    // easing: slow start, slow end, slightly bouncy
-    function ease(t: number): number {
-      return t < 0.5
-        ? 4 * t * t * t
-        : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
+  //   canvas.width = window.innerWidth;
+  //   canvas.height = window.innerHeight;
 
-    // bubble size: starts small, grows, then shrinks right before pop
-    function bubbleSize(t: number): number {
-      if (t < 0.1) return 6 + t * 10 * 14;        // grow from 6 to 20
-      if (t < 0.85) return 20 + Math.sin(t * Math.PI * 3) * 3; // gentle breathe
-      return 20 * (1 - ((t - 0.85) / 0.15));       // shrink to 0 before pop
-    }
+  //   const { startX, startY, endX, endY } = bubble;
+  //   const duration = 2200;
+  //   const start = performance.now();
 
-    function drawBubble(x: number, y: number, r: number, alpha: number) {
-      if (r <= 0) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //   // generate squiggly waypoints between start and end
+  //   const numPoints = 8;
+  //   const waypoints: { x: number; y: number }[] = [];
+  //   for (let i = 0; i <= numPoints; i++) {
+  //     const t = i / numPoints;
+  //     const baseX = startX + (endX - startX) * t;
+  //     const baseY = startY + (endY - startY) * t;
+  //     // perpendicular wiggle, stronger in the middle, random direction
+  //     const wiggleStrength = Math.sin(t * Math.PI) * 120;
+  //     const wiggleX = (Math.random() - 0.5) * wiggleStrength;
+  //     const wiggleY = (Math.random() - 0.5) * wiggleStrength * 0.5;
+  //     waypoints.push({ x: baseX + wiggleX, y: baseY + wiggleY });
+  //   }
+  //   // pin start and end exactly
+  //   waypoints[0] = { x: startX, y: startY };
+  //   waypoints[numPoints] = { x: endX, y: endY };
 
-      // outer ring (the "soap film" edge)
-      const isPrimary = bubble.role === "user";
-      const ringColor = isPrimary
-        ? `rgba(255, 79, 216, ${alpha * 0.7})`
-        : `rgba(160, 160, 180, ${alpha * 0.5})`;
+  //   // catmull-rom interpolation along waypoints
+  //   function catmullRom(
+  //     pts: { x: number; y: number }[],
+  //     t: number
+  //   ): { x: number; y: number } {
+  //     const n = pts.length - 1;
+  //     const scaled = t * n;
+  //     const i = Math.min(Math.floor(scaled), n - 1);
+  //     const lt = scaled - i;
+  //     const p0 = pts[Math.max(i - 1, 0)];
+  //     const p1 = pts[i];
+  //     const p2 = pts[Math.min(i + 1, n)];
+  //     const p3 = pts[Math.min(i + 2, pts.length - 1)];
+  //     const x =
+  //       0.5 *
+  //       ((2 * p1.x) +
+  //         (-p0.x + p2.x) * lt +
+  //         (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * lt * lt +
+  //         (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * lt * lt * lt);
+  //     const y =
+  //       0.5 *
+  //       ((2 * p1.y) +
+  //         (-p0.y + p2.y) * lt +
+  //         (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * lt * lt +
+  //         (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * lt * lt * lt);
+  //     return { x, y };
+  //   }
 
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.strokeStyle = ringColor;
-      ctx.lineWidth = 2.5;
-      ctx.stroke();
+  //   // easing: slow start, slow end, slightly bouncy
+  //   function ease(t: number): number {
+  //     return t < 0.5
+  //       ? 4 * t * t * t
+  //       : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  //   }
 
-      // transparent fill with subtle inner glow
-      const grad = ctx.createRadialGradient(
-        x - r * 0.3, y - r * 0.3, r * 0.05,
-        x, y, r
-      );
-      grad.addColorStop(0, `rgba(255,255,255,${alpha * 0.18})`);
-      grad.addColorStop(0.5, `rgba(255,255,255,${alpha * 0.04})`);
-      grad.addColorStop(1, isPrimary
-        ? `rgba(255, 79, 216, ${alpha * 0.12})`
-        : `rgba(160,160,200,${alpha * 0.08})`
-      );
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
+  //   // bubble size: starts small, grows, then shrinks right before pop
+  //   function bubbleSize(t: number): number {
+  //     if (t < 0.1) return 6 + t * 10 * 14;        // grow from 6 to 20
+  //     if (t < 0.85) return 20 + Math.sin(t * Math.PI * 3) * 3; // gentle breathe
+  //     return 20 * (1 - ((t - 0.85) / 0.15));       // shrink to 0 before pop
+  //   }
 
-      // specular highlight (top-left shine)
-      const shine = ctx.createRadialGradient(
-        x - r * 0.38, y - r * 0.38, 0,
-        x - r * 0.38, y - r * 0.38, r * 0.45
-      );
-      shine.addColorStop(0, `rgba(255,255,255,${alpha * 0.6})`);
-      shine.addColorStop(1, `rgba(255,255,255,0)`);
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = shine;
-      ctx.fill();
+  //   function drawBubble(x: number, y: number, r: number, alpha: number) {
+  //     if (r <= 0) return;
+  //     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // tiny secondary highlight (bottom-right, dimmer)
-      const shine2 = ctx.createRadialGradient(
-        x + r * 0.5, y + r * 0.5, 0,
-        x + r * 0.5, y + r * 0.5, r * 0.25
-      );
-      shine2.addColorStop(0, `rgba(255,255,255,${alpha * 0.2})`);
-      shine2.addColorStop(1, `rgba(255,255,255,0)`);
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = shine2;
-      ctx.fill();
-    }
+  //     // outer ring (the "soap film" edge)
+  //     const isPrimary = bubble.role === "user";
+  //     const ringColor = isPrimary
+  //       ? `rgba(255, 79, 216, ${alpha * 0.7})`
+  //       : `rgba(160, 160, 180, ${alpha * 0.5})`;
 
-    function animate(now: number) {
-      const elapsed = now - start;
-      const raw = Math.min(Math.max(elapsed / duration, 0), 1);
-      const t = ease(raw);
+  //     ctx.beginPath();
+  //     ctx.arc(x, y, r, 0, Math.PI * 2);
+  //     ctx.strokeStyle = ringColor;
+  //     ctx.lineWidth = 2.5;
+  //     ctx.stroke();
 
-      const pos = catmullRom(waypoints, t);
-      const size = bubbleSize(raw);
-      const alpha = raw < 0.9 ? 1 : 1 - ((raw - 0.9) / 0.1);
+  //     // transparent fill with subtle inner glow
+  //     const grad = ctx.createRadialGradient(
+  //       x - r * 0.3, y - r * 0.3, r * 0.05,
+  //       x, y, r
+  //     );
+  //     grad.addColorStop(0, `rgba(255,255,255,${alpha * 0.18})`);
+  //     grad.addColorStop(0.5, `rgba(255,255,255,${alpha * 0.04})`);
+  //     grad.addColorStop(1, isPrimary
+  //       ? `rgba(255, 79, 216, ${alpha * 0.12})`
+  //       : `rgba(160,160,200,${alpha * 0.08})`
+  //     );
+  //     ctx.beginPath();
+  //     ctx.arc(x, y, r, 0, Math.PI * 2);
+  //     ctx.fillStyle = grad;
+  //     ctx.fill();
 
-      drawBubble(pos.x, pos.y, size, alpha);
+  //     // specular highlight (top-left shine)
+  //     const shine = ctx.createRadialGradient(
+  //       x - r * 0.38, y - r * 0.38, 0,
+  //       x - r * 0.38, y - r * 0.38, r * 0.45
+  //     );
+  //     shine.addColorStop(0, `rgba(255,255,255,${alpha * 0.6})`);
+  //     shine.addColorStop(1, `rgba(255,255,255,0)`);
+  //     ctx.beginPath();
+  //     ctx.arc(x, y, r, 0, Math.PI * 2);
+  //     ctx.fillStyle = shine;
+  //     ctx.fill();
 
-      if (raw < 1) {
-        animRef.current = requestAnimationFrame(animate);
-      } else {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-    }
+  //     // tiny secondary highlight (bottom-right, dimmer)
+  //     const shine2 = ctx.createRadialGradient(
+  //       x + r * 0.5, y + r * 0.5, 0,
+  //       x + r * 0.5, y + r * 0.5, r * 0.25
+  //     );
+  //     shine2.addColorStop(0, `rgba(255,255,255,${alpha * 0.2})`);
+  //     shine2.addColorStop(1, `rgba(255,255,255,0)`);
+  //     ctx.beginPath();
+  //     ctx.arc(x, y, r, 0, Math.PI * 2);
+  //     ctx.fillStyle = shine2;
+  //     ctx.fill();
+  //   }
 
-    animRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animRef.current);
-  }, [bubble]);
+  //   function animate(now: number) {
+  //     const elapsed = now - start;
+  //     const raw = Math.min(Math.max(elapsed / duration, 0), 1);
+  //     const t = ease(raw);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        pointerEvents: "none",
-        zIndex: 9999,
-      }}
-    />
-  );
-}
+  //     const pos = catmullRom(waypoints, t);
+  //     const size = bubbleSize(raw);
+  //     const alpha = raw < 0.9 ? 1 : 1 - ((raw - 0.9) / 0.1);
 
-export default App;
+  //     drawBubble(pos.x, pos.y, size, alpha);
+
+  //     if (raw < 1) {
+  //       animRef.current = requestAnimationFrame(animate);
+  //     } else {
+  //       ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //     }
+  //   }
+
+  //   animRef.current = requestAnimationFrame(animate);
+  //   return () => cancelAnimationFrame(animRef.current);
+  // }, [bubble]);
+
+  // return (
+  //   <canvas
+  //     ref={canvasRef}
+  //     style={{
+  //       position: "fixed",
+  //       top: 0,
+  //       left: 0,
+  //       pointerEvents: "none",
+  //       zIndex: 9999,
+  //     }}
+  //   />
+  // );
+  // }
+
+  // export default App;

@@ -55,3 +55,13 @@ def promote(conn, evaluation_id: int, prompt_path: str) -> None:
                 "UPDATE evaluations SET promotion_status = 'approved' WHERE evaluation_id = %s",
                 (eval_id,),
             )
+
+# Rejection function
+def reject(conn, evaluation_id: int) -> None:
+    with conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE evaluations SET promotion_status = 'rejected' "
+                "WHERE evaluation_id = %s AND promotion_status = 'pending'",
+                (evaluation_id,),
+            )
