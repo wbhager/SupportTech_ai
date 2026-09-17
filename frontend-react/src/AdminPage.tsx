@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API_BASE = "/api";
+const API_BASE = "http://localhost:8000/api";
 
 interface Candidate {
   evaluation_id: number;

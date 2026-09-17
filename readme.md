@@ -145,7 +145,7 @@ Qwen would actually take the added context queries into account when answering t
 
 8/26: Added enum type column to evaluations table called promotion_status, which marks if an evaluation is pending approval for being used as an example to be trained on, approved, or rejected
 
-8/27:
+9/16: Deleted old and redundant files, updated evaluation prompt to be a bit more lenient and fair, tested prompts to make sure there was enough consistency with answering basic technical questions, added a utility functions file to contain the functions that are used for preparing, promoting, inserting, and deleting potential examples that the system prompt will be able to learn from, added a promotion endpoint that is hit whenever a response is graded as a 5 out of 5 so it can be selected for approval as the next example in the dynamic shot prompting, added an admin page txt file and set up access so that I can see the candidate examples and the history of approved examples, updated cursor so that it is present on the admin page, completed the project!!!
 
 FRONTEND MISSION: Make it more stylish! The hidden background image is cool, but I want to be able to make the normal background pop a little bit more.
 

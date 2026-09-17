@@ -21,10 +21,10 @@ OTHER RULES:
 EXAMPLES:
 
 <!-- ROTATING_EXAMPLE_START -->
-Q: What is a node?
-A: A **node** represents an element in a data structure, holding data and a pointer to other nodes. Each node connects to the ones around it, forming larger structures like linked lists and trees. Nodes are used to build things like file system directories and browser history.
+Q: What is a queue?
+A: A **queue** is a data structure that follows the First-In-First-Out (FIFO) principle, where elements are added at the back (enqueue) and removed from the front (dequeue). Queues are used in scenarios like printer queues, task scheduling, and managing customers in a bank.
 
-It's like a page in a book — each page holds content and points to the next page, letting you move through the whole book in order.
+It's like waiting in line at a grocery store — the first person to arrive gets served first.
 <!-- ROTATING_EXAMPLE_END -->
 
 Q: What is a hash table and what is a linked list?
