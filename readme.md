@@ -1,25 +1,23 @@
 Hello! Welcome to my second full-length self-project. This one is called SupportTech.ai!
 
-This is my own full-stack AI agent that simplifies techincal concepts, documentation, and papers down for anyone to be able to understand. I have a fully-functioning UI with a well-designed website that has a capable short term and long term memory (courtesy of postgresql). I utilize open-source model from huggingface that I can run and fine-tune on my Mac with its limited compute. I have implemented tools such as Tavily web search, a file reader, and RAG (ChromaDB). I use GPT 5.1 as my orchestrator model that determines what tool / process will be implemented.
+Current Status: DONE!!! It can always be updated and improved, but it is satisfactory for now!
 
-I am in the middle of configuring Claude Sonnet 4-5 to be my evaluation model to check my outputs, and I will create a flywheel where the agent will be fine-tuned on the best of the evaluated responses. After I finalize my fine-tuning loop, I plan to adjust some of the underlying PyTorch to so that I can make fine-grained decisions and potentially create a routing classifier.
+This is my own full-stack AI agent that simplifies techincal concepts, documentation, and papers down for anyone to be able to understand. I have a fully-functioning UI with a well-designed website that has a capable short term and long term memory (courtesy of postgresql). I utilize open-source model from huggingface that I can run and fine-tune on my Mac with its limited compute. I have implemented tools such as Tavily web search, a file reader, and RAG (ChromaDB). I use GPT 5.1 as my orchestrator model that determines what tool / process will be implemented. I have also implemented dynamic-shot prompting, where highly-rated responses from my evaluator model claude sonnet 4-5 will be subject for approval as the next example for Qwen to use in its system prompt to provide the best responses, so that the model continuously improves on itself.
 
 The primary reason I made this was because I wanted to be involved in as many parts of the AI training life-cycle as I possibly could. Aside from pre-training and some advanced fine-tuning techniques, I have accomplished this mission.
-
-Note-to-self: Create video demonstration to put on GitHub once finished!
-Note-to-self: Don't forget command D for being able to edit multiple words at once! (Command + Shift + L for all instances)
 
 <br> <br> <br>
 
 To-do:
 
     Backend:
-        - Adjust evaluation and model system prompts ever so slightly to easen up the evaluations and change up the word play of the analogies a tiny bit
-        - Set up learning pipeline of flywheel where the Qwen learns from the most recent top response and one baseline response from a new file
-        - Add thumbs up/down button that also gets added to the successful answers that the model learns from (Optional)
-        - Perform edge-case testing everywhere to check for bugs
+        - Nothing, as of now!
 
-    Frontend:
+    Frontend (if I want to pick the project back up):
+        - Bring back the cursor for the buttons in the admin page
+        - Spice up the admin page a bit
+        - Update the theme switcher button a bit
+        - Add some more color themes and experiment with backgrounds
         - Make initial front page design "pop" a little bit more
         - Edit responses so that user input and agent output flows seamlessly like monkeytype (if possible)
         - Continue developing color themes as the site gets more populated and there are more things to color in
